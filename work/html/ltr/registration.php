@@ -1,5 +1,6 @@
 <?php 
 include('admin/dbconnect.php');
+//indu
 
 if(isset($_POST['register']))
 {
