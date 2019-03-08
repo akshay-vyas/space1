@@ -14,6 +14,9 @@
             </ul>
           </li>
 
+          <li class=" nav-item"><a href="vendor-information.php"><i class="ft-user"></i><span class="menu-title" data-i18n="">Vendor</span></a>
+          </li>
+
            <li class=" nav-item"><a href="#"><i class="ft-monitor"></i><span class="menu-title" data-i18n="">operations</span></a>
             <ul class="menu-content">
                <li><a class="menu-item" href="add-designation.php">Designation Details</a></li>
