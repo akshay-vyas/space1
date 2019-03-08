@@ -1,5 +1,6 @@
 <?php 
 include('admin/dbconnect.php');
+//indu
 
 if(isset($_POST['register']))
 {
@@ -10,6 +11,10 @@ if(isset($_POST['register']))
     $date = '';
     mysqli_query($conn,"insert into garage_owner values(null,'$username','$usermobile','$useremail','$userpassword','$date','garage','inactive')");
 }
+
+//akshay is ok
+
+
 
 ?>
 
