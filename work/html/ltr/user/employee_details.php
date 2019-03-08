@@ -1,5 +1,5 @@
 <?php
-include('connect.php');
+include('dbconnect.php');
 if(isset($_POST['submit']))
 {
   $name = $_POST['emp_name'];
@@ -12,12 +12,19 @@ if(isset($_POST['submit']))
   $mobile = $_POST['emp_mobno'];
   $Landline = $_POST['emp_landline'];
   $dob = $_POST['emp_date'];
-
   $empl = mysqli_query($conn,"insert into employee_details values(null,'1','$name','1','$mobile','$email','$address','$country','$state','$city','$Landline','$dob','Active')");
-  ?>
-
-<?php
-} /*end of for*/
+}
+      if (isset($_POST['submit1'])) 
+      {
+       $eid = $_POST['name-emp'];
+       $desid = $_POST['designatio'];
+       foreach ($desid as $desig)
+      {
+         echo "$desig";
+      $des = mysqli_query($conn,"insert into employee_designation values(null,'$eid','$desig','Active')");
+    
+      }
+      }
 ?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
@@ -28,7 +35,7 @@ if(isset($_POST['submit']))
     <meta name="description" content="Stack admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, stack admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Dashboard eCommerce - Stack Responsive Bootstrap 4 Admin Template</title>
+    <title>Employee Details</title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
@@ -61,12 +68,6 @@ if(isset($_POST['submit']))
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <!-- end of data togle -->
   </head>
-  <script>
-    function alt()
-    {
-      alert("Data saved");
-    }
-  </script>
   <body class="vertical-layout vertical-menu-modern 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
     <!-- fixed-top-->
@@ -84,7 +85,7 @@ include('header.php');
         </div>
 
 <!--/ Basic Horizontal Timeline -->
-<form method="post" >
+<form method="post" action="#designation">
 <section id="alerts-with-icons" class="mb-2">
     <div class="row">
         <div class="col-md-12">
@@ -125,11 +126,6 @@ include('header.php');
      <!-- create biv -->
      <fieldset>
         <legend>Employee Information</legend>
-       <!--  <table>
-           <tr><th>Employee Name<span style="color: red">*</span></th></tr>
-           <tr><td><input type="text" name="name" class="form-control"></td></tr> 
-            
-        </table> -->
     <div class="row">
         <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
@@ -199,15 +195,52 @@ include('header.php');
                   <button type="reset" name="reset" class="btn btn-warning">Reset <i class="ft-refresh-cw position-right"></i></button>
                 </div>
     </div>
-    <!-- start of desig -->
-        <div id="designation" class="container tab-pane fade"><br>
+    <!-- start of employee designation -->
+      <div id="designation" class="container tab-pane fade"><br>
      <!--  view div -->
       <div>
        <div>
-         <input type="se" name="">
+        <fieldset><legend>Employee Designation</legend><br>
+
+        Employee Name : <select name="name-emp" required="">
+        <option>Please select</option>
+         <?php
+         $sql = mysqli_query($conn,"select * from employee_details");
+         foreach ($sql as $sql1 )
+         {
+          ?>
+          <option value="<?php echo $sql1['employee_id'];?>"><?php echo $sql1['employee_name'];?> </option>
+        <?php 
+         }
+         ?>
+         </select><br>&nbsp
+         <div class="form-group">
+         <h5><strong>Employee Designation </strong><span style="color: red">*</span></h5> 
+         <br>&nbsp  
+         <?php
+         $res = mysqli_query($conn,"select * from designation_details");
+         foreach ($res as $res1) 
+         {
+          $des_id =$res1['designation_id'];
+         ?>
+         <div class="controls">
+         <div class="skin skin-square">
+         <input type="checkbox" name="designatio[]" value="<?php echo $res1['designation_id'];?>">
+        <label for="<?php echo $res1['designation_id'];?>"><?php echo $res1['designation_name'];?></label>
+        </div>
+        </div>
+          <?php
+        }
+        ?>
+      </div>
+        </fieldset>
+      </div>
        </div>
+        <div class="text-right">
+        <button type="submit" name="submit1" class="btn btn-success">Submit <i class="ft-thumbs-up position-right"></i></button>
+      </div>
     </div>
-    <!-- end of desig -->
+    <!-- end of employee designation -->
     <div id="view" class="container tab-pane fade"><br>
      <!--  view div -->
       <div>
@@ -217,6 +250,7 @@ include('header.php');
         <input type="text" class="form-control" id="basicInput" >
     </div>
         </fieldset>
+        <button name="submit">submit</button>
         </div>
     </div>
  <!--  </div>-->
