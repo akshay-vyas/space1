@@ -12,7 +12,7 @@ if(isset($_POST['register']))
     mysqli_query($conn,"insert into garage_owner values(null,'$username','$usermobile','$useremail','$userpassword','$date','garage','inactive')");
 }
 
-//akshay is ok
+
 
 
 
