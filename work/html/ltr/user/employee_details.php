@@ -85,7 +85,7 @@ include('header.php');
         </div>
 
 <!--/ Basic Horizontal Timeline -->
-<form method="post" action="#designation">
+<form name="form-1" method="post" action="#">
 <section id="alerts-with-icons" class="mb-2">
     <div class="row">
         <div class="col-md-12">
@@ -191,16 +191,18 @@ include('header.php');
     </div>
         </fieldset>
          <div class="text-right">
-                  <button type="submit" name="submit" class="btn btn-success">Submit <i class="ft-thumbs-up position-right"></i></button>
+                  <button type="submit" name="submit" class="btn btn-success" id="hide">Submit <i class="ft-thumbs-up position-right"></i></button>
                   <button type="reset" name="reset" class="btn btn-warning">Reset <i class="ft-refresh-cw position-right"></i></button>
                 </div>
     </div>
+  </form>
     <!-- start of employee designation -->
       <div id="designation" class="container tab-pane fade"><br>
      <!--  view div -->
+          <form name="form-2" method="post" action="#">
       <div>
        <div>
-        <fieldset><legend>Employee Designation</legend><br>
+        <legend>Employee Designation</legend><br>
 
         Employee Name : <select name="name-emp" required="">
         <option>Please select</option>
@@ -233,13 +235,13 @@ include('header.php');
         }
         ?>
       </div>
-        </fieldset>
+        
       </div>
        </div>
         <div class="text-right">
         <button type="submit" name="submit1" class="btn btn-success">Submit <i class="ft-thumbs-up position-right"></i></button>
       </div>
-    </div>
+      </form>
     <!-- end of employee designation -->
     <div id="view" class="container tab-pane fade"><br>
      <!--  view div -->
@@ -257,7 +259,6 @@ include('header.php');
 </div> 
         </div>
       </div>
-   </form>
     <!-- ////////////////////////////////////////////////////////////////////////////-->
 
 <?php
