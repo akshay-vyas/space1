@@ -1,5 +1,5 @@
 <?php
-include('connect.php');
+include('../admin/dbconnect.php');
 if(isset($_POST['submit']))
 {
   $name = $_POST['emp_name'];
