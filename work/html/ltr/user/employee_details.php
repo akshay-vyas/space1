@@ -20,7 +20,6 @@ if(isset($_POST['submit']))
        $desid = $_POST['designatio'];
        foreach ($desid as $desig)
       {
-         echo "$desig";
       $des = mysqli_query($conn,"insert into employee_designation values(null,'$eid','$desig','Active')");
     
       }
@@ -41,6 +40,7 @@ if(isset($_POST['submit']))
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
     <!-- BEGIN VENDOR CSS-->
     <link rel="stylesheet" type="text/css" href="../../../app-assets/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/datatable/datatables.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/extensions/unslider.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/weather-icons/climacons.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/fonts/meteocons/style.min.css">
@@ -204,7 +204,7 @@ include('header.php');
        <div>
         <legend>Employee Designation</legend><br>
 
-        Employee Name : <select name="name-emp" required="">
+        Employee Name :  <select name="name-emp" required="">
         <option>Please select</option>
          <?php
          $sql = mysqli_query($conn,"select * from employee_details");
@@ -214,45 +214,117 @@ include('header.php');
           <option value="<?php echo $sql1['employee_id'];?>"><?php echo $sql1['employee_name'];?> </option>
         <?php 
          }
-         ?>
+         ?> 
+         <input type="text" name="employe_name" placeholder="Name of the Employee" readonly="" value="<?php echo $name ?>">
          </select><br>&nbsp
          <div class="form-group">
          <h5><strong>Employee Designation </strong><span style="color: red">*</span></h5> 
          <br>&nbsp  
          <?php
          $res = mysqli_query($conn,"select * from designation_details");
+         ?>
+         <!-- <div class="row">
+         <div class="col-xl-5 col-lg-5 col-md-12 mb-1 "> -->
+          <table >
+          <?php
          foreach ($res as $res1) 
          {
           $des_id =$res1['designation_id'];
          ?>
-         <div class="controls">
-         <div class="skin skin-square">
-         <input type="checkbox" name="designatio[]" value="<?php echo $res1['designation_id'];?>">
-        <label for="<?php echo $res1['designation_id'];?>"><?php echo $res1['designation_name'];?></label>
-        </div>
-        </div>
+         <!-- <div class="controls">
+         <div class="skin skin-square"> -->
+          
+        <th><td><input type="checkbox" name="designatio[]" value="<?php echo $res1['designation_id'];?>"> 
+        <label for="<?php echo $res1['designation_id'];?>"><strong><?php echo $res1['designation_name'];?></strong></label></td></th>
+    
+        <!-- </div> -->
           <?php
         }
         ?>
+        </table>
+    <!-- </div>
+      </div> -->
+      <div class="text-right">
+        <button type="submit" name="submit1" class="btn btn-success">Submit <i class="ft-thumbs-up position-right"></i></button>
+      </div>
+        </div>
       </div>
         
       </div>
        </div>
-        <div class="text-right">
-        <button type="submit" name="submit1" class="btn btn-success">Submit <i class="ft-thumbs-up position-right"></i></button>
-      </div>
       </form>
     <!-- end of employee designation -->
     <div id="view" class="container tab-pane fade"><br>
      <!--  view div -->
       <div>
-        <fieldset class="form-group">
-        <div>
-        <label for="basicInput">view</label>
-        <input type="text" class="form-control" id="basicInput" >
+         <!-- display query starts -->
+       <!-- Scroll - horizontal table -->
+<section id="horizontal">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Scroll - horizontal</h4>
+                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                            <li><a data-action="close"><i class="ft-x"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-content collapse show">
+                    <div class="card-body card-dashboard">
+                        <table class="table display nowrap table-striped table-bordered scroll-horizontal">
+                            <thead>
+                               <th>Employee Name</th>
+                                    <th>Employee PhoneNumber</th>
+                                    <th>Employee Address</th>
+                                    <th>Employee City</th>
+                                    <th>Employee Designations</th>
+                                </tr>
+
+                                 <?php 
+                                   $que = mysqli_query($conn, "SELECT * FROM employee_details where garage_id ='1'");
+                                foreach($que as $que1)
+                                {
+                                  ?>
+                                
+                                    <tr>
+                                    <td><?php echo $que1['employee_name'] ?></td>
+                                    <td><?php echo $que1['employee_mobile'] ?></td>
+                                    <td><?php echo $que1['employee_address'] ?></td>
+                                    <td><?php echo $que1['employee_city'] ?></td>
+                                    <td> 
+                                        <?php
+                                    $emp_id = $que1['employee_id'];
+
+                                    $desi_name = mysqli_query($conn,"SELECT * FROM employee_designation ed,designation_details d,employee_details e where e.employee_id = ed.employee_id AND ed.designation_id = d.designation_id AND ed.employee_id ='$emp_id' ");
+                                    foreach ($desi_name as $des1)
+                                    {
+                                    ?>
+                                    <?php echo $des1['designation_name'] ?><strong>,</strong>
+                                    <?php
+                                     }
+                                    ?></td>
+                                    <?php
+                                    }?>
+                                
+                                    
+                                
+                                </tr></thead>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-        </fieldset>
-        <button name="submit">submit</button>
+</section>
+<!--/ Scroll - horizontal table -->
         </div>
     </div>
  <!--  </div>-->
@@ -269,6 +341,7 @@ include('theme.php');
    <?php include('footer.php'); ?>
 
     <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
+     <script src="../../../app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
     <script src="../../../app-assets/vendors/js/charts/raphael-min.js"></script>
     <script src="../../../app-assets/vendors/js/charts/morris.min.js"></script>
     <script src="../../../app-assets/vendors/js/extensions/unslider-min.js"></script>
@@ -277,7 +350,6 @@ include('theme.php');
     <script src="../../../app-assets/js/core/app.min.js"></script>
     <script src="../../../app-assets/js/scripts/customizer.min.js"></script>
     <script src="../../../app-assets/js/scripts/pages/dashboard-ecommerce.min.js"></script>
+    <script src="../../../app-assets/js/scripts/tables/datatables/datatable-basic.min.js"></script>
   </body>
-
-<!-- Mirrored from pixinvent.com/stack-responsive-bootstrap-4-admin-template/html/ltr/vertical-modern-menu-template/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Mar 2019 20:03:18 GMT -->
 </html>
