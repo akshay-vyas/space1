@@ -48,46 +48,155 @@ include('header.php');
     <div class="app-content content">
       <div class="content-wrapper">
         <div class="content-header row">
-            <div class="row">
-
-                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                <fieldset class="form-group">
-                                    <label for="basicInput">Company Name</label>
-                                    <input type="text" class="form-control" id="basicInput" name="vendor_company_name">
-                                </fieldset>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                <fieldset class="form-group">
-                                    <label for="basicInput">Mobile</label>
-                                    <input type="text" class="form-control" id="basicInput" name="vendor_mobile" >
-                                </fieldset>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                <fieldset class="form-group">
-                                    <label for="basicInput">Email</label>
-                                    <input type="text" class="form-control" id="basicInput" name="vendor_email">
-                                </fieldset>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                <fieldset class="form-group">
-                                    <label for="basicInput">Address</label>
-                                    <input type="text" class="form-control" id="basicInput" name="vendor_address">
-                                </fieldset>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                <fieldset class="form-group">
-                                    <label for="basicInput">Landline</label>
-                                    <input type="text" class="form-control" id="basicInput" name="vendor_landline" >
-                                </fieldset>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                <fieldset class="form-group">
-                                    <label for="basicInput">GST Number</label>
-                                    <input type="text" class="form-control" id="basicInput" name="vendor_gst_no">
-                                </fieldset>
-                            </div>
-                        </div>
         </div>
+        <div class="content-body">
+<section class="basic-elements">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <h4 class="card-title">Service Details</h4>
+                </div>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+                            <li class="nav-item active">
+
+                                <a class="nav-link active show"  id="home-tab" data-toggle="tab" href="#create" role="tab" aria-controls="home" aria-selected="true">Add Services</a>
+
+                            </li>
+
+                            <li class="nav-item">
+
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#view" role="tab" aria-controls="profile" aria-selected="false">View Services</a>
+
+                            </li>
+
+                            
+
+
+
+                        </ul>
+
+
+                        <div class="tab-content">
+                <div class="card-content tab-pane active" id="create">
+                    <div class="card-body">
+                        <form method="post">
+                        <div class="row">
+
+                           <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">Service Name</label>
+                                    <input type="text" class="form-control" id="basicInput" name="service_name">
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">Actual Labour Charge</label>
+                                    <input type="text" class="form-control" id="basicInput" name="labour_charge" >
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">GST(%)</label>
+                                    <input type="text" class="form-control" id="basicInput" name="gst_percent">
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">GST Amount</label>
+                                    <input type="text" class="form-control" id="basicInput" name="gst_amt">
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">Total Amount</label>
+                                    <input type="text" class="form-control" id="basicInput" name="total_amt" >
+                                </fieldset>
+                            </div>
+                            <div class="col-sm-12 mb-1">
+                            <button class="btn btn-primary float-right" type="submit" name="add_service" value="add_service"> Submit</button>
+                          </div>
+                            
+                        </div>
+            
+</form>
+                    </div>
+                </div>
+
+
+                <div class="card-content tab-pane" id="view">
+                    <div class="card-body">
+                     
+        <div class="card-content collapse show">
+          <div class="card-body card-dashboard">
+            <div class="table-responsive">
+                         <table class="table table-striped table-bordered dataex-html5-export">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Service Name</th>
+                  <th>Actual Labour Charge</th>
+                  <th>GST(%)</th>
+                  <th>GST Amount</th>
+                  <th>Total Amount</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+
+                  
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                $i=1;
+
+                $sql=mysqli_query($conn,"select * from service_details where garage_id='$garage_id'");
+                foreach($sql as $doc) 
+                {
+                  
+
+                ?>               
+                <tr>
+                  <td><?php echo $i;?></td>
+                  <td><?php echo $doc['service_name']; ?></td>
+                  <td><?php echo $doc['labour_charge']; ?></td>
+                  <td><?php echo $doc['gst_percentage']; ?></td>
+                   <td><?php echo $doc['gst_amt']; ?></td>
+                  <td><?php echo $doc['total_amt']; ?></td>
+<form action="view-contacts.php" method="post" target="new">
+    <input type="hidden" name="hide" value="<?php echo $doc['vendor_id']; ?>" >
+                 <td><button class="btn btn-primary float-right" type="submit" name="view_contacts" value="view_contacts">View Contacts</button></td>
+</form>
+                  <td><button class="btn btn-primary float-right" type="submit" name="edit_contacts" value="edit_contacts">Edit</button></td>
+                 
+                </tr>
+                
+               <?php
+               $i=$i+1;
+               }
+               ?> 
+              </tbody>
+              
+            </table> 
+        </div>
+        </div>
+    </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+</div>
+                
 
 <!--/ Basic Horizontal Timeline -->
 
