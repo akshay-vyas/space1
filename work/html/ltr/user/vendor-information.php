@@ -52,7 +52,7 @@ if(isset($_POST['add_contact']))
     $vendor_contact_email1=$_POST['vendor_contact_email1'];
     $vendor_contact_landline1=$_POST['vendor_contact_landline1'];
        $vendor_contact_insert1=mysqli_query($conn,"insert into vendor_contact_information values(null,'$garage_id','$vendor_company_name1','$vendor_contact_name1','$vendor_contact_mobile1','$vendor_contact_email1','$vendor_contact_landline1','0') ");
-
+       header('Location:vendor-information.php');
 
 }
 
@@ -124,7 +124,17 @@ include('header.php');
 
                 <div class="card-header">
                     <h4 class="card-title">Vendor Information</h4>
+                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-h font-medium-3"></i></a>
+                                <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                            <li><a data-action="close"><i class="ft-x"></i></a></li>
+                        </ul>
+                    </div>
                 </div>
+                 <div class="card-content collapse show">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
 
                             <li class="nav-item active">
@@ -379,6 +389,7 @@ include('header.php');
 
             </div>
         </div>
+    </div>
     </div>
 </section>
 </div>
