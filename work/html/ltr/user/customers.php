@@ -1,3 +1,32 @@
+<?php
+include('dbconnect.php');
+session_start();
+$owner_id=$_SESSION['owner_id'];
+$garage_id='';
+$owner_info=mysqli_query($conn,"select * from garage_details where owner_id='$owner_id'");
+foreach($owner_info as $info)
+{
+    $garage_id=$info['garage_id'];
+}
+if(isset($_POST['add_customer']))
+{
+    $customer_name=$_POST['customer_name'];
+    $customer_mobile=$_POST['customer_mobile'];
+    $customer_email=$_POST['customer_email'];
+    $customer_address=$_POST['customer_address'];
+    $customer_aadhar=$_POST['customer_aadhar'];
+    $customer_pan=$_POST['customer_pan'];
+    $customer_gst_no=$_POST['customer_gst_no'];
+    $customer_alternate_mobile=$_POST['customer_alternate_mobile'];
+    $customer_status='0';
+    
+    $add_customer=mysqli_query($conn,"insert into customer_information values(null,'$garage_id','$customer_name','$customer_mobile','$customer_email','$customer_address','$customer_aadhar','$customer_pan','$customer_gst_no','$customer_alternate_mobile','$customer_status')");
+    header('Location:customers.php');
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
   
@@ -37,13 +66,11 @@
   <body class="vertical-layout vertical-menu-modern 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
     <!-- fixed-top-->
-    <?php
-include('header.php');
-    ?>
+   
     <!-- ////////////////////////////////////////////////////////////////////////////-->
 
 
-<?php include('aside.php');?>
+
 
     <div class="app-content content">
       <div class="content-wrapper">
@@ -51,95 +78,103 @@ include('header.php');
         </div>
 
 <!--/ Basic Horizontal Timeline -->
-
- <div class="content-body">
+        <div class="content-body">
 <section class="basic-elements">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Basic Elements</h4>
-                </div>
-                <div class="card-content">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                <fieldset class="form-group">
-                                    <label for="basicInput">Basic Input</label>
-                                    <input type="text" class="form-control" id="basicInput" >
-                                </fieldset>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                <fieldset class="form-group">
-                                    <label for="helpInputTop">Input text with help</label>
-                                    <small class="text-muted">eg.<i>someone@example.com</i></small>
-                                    <input type="text" class="form-control" id="helpInputTop">
-                                </fieldset>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                <fieldset class="form-group">
-                                    <label for="disabledInput">Disabled Input</label>
-                                    <input type="text" class="form-control" id="disabledInput" disabled>
-                                </fieldset>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                <fieldset class="form-group">
-                                    <label for="disabledInput">Readonly Input</label>
-                                    <input type="text" class="form-control" id="readonlyInput" readonly="readonly" value="You can't update me :P">
-                                </fieldset>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                <fieldset class="form-group">
-                                    <label for="disabledInput">Input with Placeholder</label>
-                                    <input type="email" class="form-control" id="placeholderInput" placeholder="Enter Email Address">
-                                </fieldset>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                <fieldset class="form-group">
-                                    <label for="disabledInput">Static Text</label>
-                                    <p class="form-control-static" id="staticInput">email@pixinvent.com</p>
-                                </fieldset>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                <fieldset class="form-group">
-                                    <label for="roundText">Rounded Input</label>
-                                    <input type="text" id="roundText" class="form-control round" placeholder="Rounded Input">
-                                </fieldset>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                <fieldset class="form-group">
-                                    <label for="squareText">Square Input</label>
-                                    <input type="text" id="squareText" class="form-control square" placeholder="square Input">
-                                </fieldset>
-                            </div>
-                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                <fieldset class="form-group">
-                                    <label for="helperText">With Helper Text</label>
-                                    <input type="text" id="helperText" class="form-control" placeholder="Name">
-                                    <p><small class="text-muted">Find helper text here for given textbox.</small></p>
-                                </fieldset>
-                            </div>
-                        </div>
+                 <div class="card-header">
+                    <h4 class="card-title">Customer Information</h4>
+                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-h font-medium-3"></i></a>
+                                <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                            <li><a data-action="close"><i class="ft-x"></i></a></li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
+                <div class="card-content collapse show">
+                    <div class="tab-content">
+               
+                    <div class="card-body">
+
+                                        <form method="post">
+                        <div class="row">
+
+                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">Customer Name</label>
+                                    <input type="text" class="form-control" id="basicInput" name="customer_name">
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">Mobile</label>
+                                    <input type="text" class="form-control" id="basicInput" name="customer_mobile" >
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">Email</label>
+                                    <input type="text" class="form-control" id="basicInput" name="customer_email">
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">Address</label>
+                                    <input type="text" class="form-control" id="basicInput" name="customer_address">
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">Aadhar Card Number</label>
+                                    <input type="text" class="form-control" id="basicInput" name="customer_aadhar" >
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">PAN Card Number</label>
+                                    <input type="text" class="form-control" id="basicInput" name="customer_pan">
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">GST Number</label>
+                                    <input type="text" class="form-control" id="basicInput" name="customer_gst_no">
+                                </fieldset>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                <fieldset class="form-group">
+                                    <label for="basicInput">Alternate Mobile Number</label>
+                                    <input type="text" class="form-control" id="basicInput" name="customer_alternate_mobile">
+                                </fieldset>
+                            </div>
+                             <div class="col-sm-12 mb-1">
+                            <button class="btn btn-primary float-right" type="submit" name="add_customer" value="add_customer"> Submit</button>
+                          </div>
+                        </div>
+
+
+</form>
 </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
 
         </div>
       </div>
    
     <!-- ////////////////////////////////////////////////////////////////////////////-->
 
-<?php
-include('theme.php');
-
-?>
     <div class="buy-now"><a href="https://goo.gl/nJZ5V1" target="_blank" class="btn bg-gradient-directional-purple white btn-purple btn-glow px-2">Buy Now</a></div>
 
-   <?php include('footer.php'); ?>
+  
 
     <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
     <script src="../../../app-assets/vendors/js/charts/raphael-min.js"></script>

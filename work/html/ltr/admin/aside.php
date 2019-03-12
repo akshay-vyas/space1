@@ -17,7 +17,7 @@
            <li class=" nav-item"><a href="#"><i class="ft-monitor"></i><span class="menu-title" data-i18n="">operations</span></a>
             <ul class="menu-content">
                <li><a class="menu-item" href="designation-details.php">Designation Details</a></li>
-               <li><a class="menu-item" href="demo.php">Demo</a></li>
+              
                <li><a class="menu-item" href="oem-details.php">OEM Details </a></li>
                <li><a class="menu-item" href="repair-types.php">Repair Type </a></li>
 

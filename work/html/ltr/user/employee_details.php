@@ -1,5 +1,8 @@
 <?php
+
+
 include('dbconnect.php');
+
 if(isset($_POST['submit']))
 {
   $name = $_POST['emp_name'];
@@ -35,7 +38,7 @@ if(isset($_POST['submit']))
     <meta name="description" content="Stack admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, stack admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Employee Details</title>
+    <title>Dashboard eCommerce - Stack Responsive Bootstrap 4 Admin Template</title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
@@ -46,6 +49,9 @@ if(isset($_POST['submit']))
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/weather-icons/climacons.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/fonts/meteocons/style.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/charts/morris.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/datatable/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/extensions/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css">
     <!-- END VENDOR CSS-->
     <!-- BEGIN STACK CSS-->
     <link rel="stylesheet" type="text/css" href="../../../app-assets/css/app.min.css">
@@ -60,15 +66,8 @@ if(isset($_POST['submit']))
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
     <!-- END Custom CSS-->
-   <!--  Begin of data togle -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!-- end of data togle -->
   </head>
+
   <body class="vertical-layout vertical-menu-modern 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
     <!-- fixed-top-->
