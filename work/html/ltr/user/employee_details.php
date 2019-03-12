@@ -13,6 +13,7 @@ if(isset($_POST['submit']))
   $Landline = $_POST['emp_landline'];
   $dob = $_POST['emp_date'];
   $empl = mysqli_query($conn,"insert into employee_details values(null,'1','$name','1','$mobile','$email','$address','$country','$state','$city','$Landline','$dob','Active')");
+  /*$em = mysqli_query($conn, "select * from employee_details where employee_name = '$name' ");*/
 }
       if (isset($_POST['submit1'])) 
       {
@@ -130,50 +131,50 @@ include('header.php');
         <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Employee Name</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_name" autofocus="" required="">
+        <input type="text" class="form-control" name="emp_name" autofocus="" required="" style="text-transform: capitalize;">
         <span style="color: red" hidden="">please enter the Name</span>
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Empolyee Code</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_code" >
+        <input type="text" class="form-control" name="emp_code" required="" style="text-transform: capitalize;" >
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Address</label><span style="color: red"> * </span>
-        <textarea class="form-control" name="emp_addr" rows="3"></textarea>
+        <textarea class="form-control" name="emp_addr" rows="3" required="" style="text-transform: capitalize;"></textarea>
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Country</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_country">
+        <input type="text" class="form-control" name="emp_country" required="" style="text-transform: capitalize;">
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">State</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_state" >
+        <input type="text" class="form-control" name="emp_state" required="" style="text-transform: capitalize;" >
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">City</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_city" >
+        <input type="text" class="form-control" name="emp_city" required="" style="text-transform: capitalize;">
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Email-Id</label>
-        <input type="email" class="form-control" name="emp_email" >
+        <input type="email" class="form-control" name="emp_email">
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Mobile Number</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_mobno" maxlength="10" >
+        <input type="text" class="form-control" name="emp_mobno" maxlength="10" required="">
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
@@ -203,7 +204,8 @@ include('header.php');
       <div>
        <div>
         <legend>Employee Designation</legend><br>
-
+<!--         <input type="text" name="id" value="<?php echo $em['employee_id']; ;?>" >
+        <input type="text" name="na" value="<?php echo $name ;?>"> -->
         Employee Name :  <select name="name-emp" required="">
         <option>Please select</option>
          <?php
@@ -215,7 +217,7 @@ include('header.php');
         <?php 
          }
          ?> 
-         <input type="text" name="employe_name" placeholder="Name of the Employee" readonly="" value="<?php echo $name ?>">
+         <!-- <input type="text" name="employe_name" placeholder="Name of the Employee" readonly="" value="<?php echo $name ?>"> -->
          </select><br>&nbsp
          <div class="form-group">
          <h5><strong>Employee Designation </strong><span style="color: red">*</span></h5> 
@@ -225,7 +227,7 @@ include('header.php');
          ?>
          <!-- <div class="row">
          <div class="col-xl-5 col-lg-5 col-md-12 mb-1 "> -->
-          <table >
+          <table ><tr>
           <?php
          foreach ($res as $res1) 
          {
@@ -234,13 +236,13 @@ include('header.php');
          <!-- <div class="controls">
          <div class="skin skin-square"> -->
           
-        <th><td><input type="checkbox" name="designatio[]" value="<?php echo $res1['designation_id'];?>"> 
-        <label for="<?php echo $res1['designation_id'];?>"><strong><?php echo $res1['designation_name'];?></strong></label></td></th>
+        <td><input type="checkbox" name="designatio[]" value="<?php echo $res1['designation_id'];?>"> 
+        <label for="<?php echo $res1['designation_id'];?>"><strong><?php echo $res1['designation_name'];?></strong></label></td>
     
         <!-- </div> -->
           <?php
         }
-        ?>
+        ?></tr>
         </table>
     <!-- </div>
       </div> -->
@@ -286,7 +288,12 @@ include('header.php');
                                     <th>Employee Designations</th>
                                 </tr>
 
-                                 <?php 
+                                
+                                
+                                    
+                                
+                                </thead><tbody>
+                                  <?php 
                                    $que = mysqli_query($conn, "SELECT * FROM employee_details where garage_id ='1'");
                                 foreach($que as $que1)
                                 {
@@ -311,10 +318,6 @@ include('header.php');
                                     ?></td>
                                     <?php
                                     }?>
-                                
-                                    
-                                
-                                </tr></thead>
 
                             </tbody>
                         </table>
