@@ -1,5 +1,8 @@
 <?php
-include('../admin/dbconnect.php');
+
+
+include('dbconnect.php');
+
 if(isset($_POST['submit']))
 {
   $name = $_POST['emp_name'];
@@ -12,12 +15,19 @@ if(isset($_POST['submit']))
   $mobile = $_POST['emp_mobno'];
   $Landline = $_POST['emp_landline'];
   $dob = $_POST['emp_date'];
-
   $empl = mysqli_query($conn,"insert into employee_details values(null,'1','$name','1','$mobile','$email','$address','$country','$state','$city','$Landline','$dob','Active')");
-  ?>
-
-<?php
-} /*end of for*/
+}
+      if (isset($_POST['submit1'])) 
+      {
+       $eid = $_POST['name-emp'];
+       $desid = $_POST['designatio'];
+       foreach ($desid as $desig)
+      {
+         echo "$desig";
+      $des = mysqli_query($conn,"insert into employee_designation values(null,'$eid','$desig','Active')");
+    
+      }
+      }
 ?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
@@ -38,6 +48,9 @@ if(isset($_POST['submit']))
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/weather-icons/climacons.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/fonts/meteocons/style.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/charts/morris.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/datatable/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/extensions/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css">
     <!-- END VENDOR CSS-->
     <!-- BEGIN STACK CSS-->
     <link rel="stylesheet" type="text/css" href="../../../app-assets/css/app.min.css">
@@ -52,21 +65,8 @@ if(isset($_POST['submit']))
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
     <!-- END Custom CSS-->
-   <!--  Begin of data togle -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <!-- end of data togle -->
   </head>
-  <script>
-    function alt()
-    {
-      alert("Data saved");
-    }
-  </script>
+
   <body class="vertical-layout vertical-menu-modern 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
     <!-- fixed-top-->
@@ -84,7 +84,7 @@ include('header.php');
         </div>
 
 <!--/ Basic Horizontal Timeline -->
-<form method="post" >
+<form name="form-1" method="post" action="#">
 <section id="alerts-with-icons" class="mb-2">
     <div class="row">
         <div class="col-md-12">
@@ -125,11 +125,6 @@ include('header.php');
      <!-- create biv -->
      <fieldset>
         <legend>Employee Information</legend>
-       <!--  <table>
-           <tr><th>Employee Name<span style="color: red">*</span></th></tr>
-           <tr><td><input type="text" name="name" class="form-control"></td></tr> 
-            
-        </table> -->
     <div class="row">
         <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
@@ -195,19 +190,58 @@ include('header.php');
     </div>
         </fieldset>
          <div class="text-right">
-                  <button type="submit" name="submit" class="btn btn-success">Submit <i class="ft-thumbs-up position-right"></i></button>
+                  <button type="submit" name="submit" class="btn btn-success" id="hide">Submit <i class="ft-thumbs-up position-right"></i></button>
                   <button type="reset" name="reset" class="btn btn-warning">Reset <i class="ft-refresh-cw position-right"></i></button>
                 </div>
     </div>
-    <!-- start of desig -->
-        <div id="designation" class="container tab-pane fade"><br>
+  </form>
+    <!-- start of employee designation -->
+      <div id="designation" class="container tab-pane fade"><br>
      <!--  view div -->
+          <form name="form-2" method="post" action="#">
       <div>
        <div>
-         <input type="se" name="">
+        <legend>Employee Designation</legend><br>
+
+        Employee Name : <select name="name-emp" required="">
+        <option>Please select</option>
+         <?php
+         $sql = mysqli_query($conn,"select * from employee_details");
+         foreach ($sql as $sql1 )
+         {
+          ?>
+          <option value="<?php echo $sql1['employee_id'];?>"><?php echo $sql1['employee_name'];?> </option>
+        <?php 
+         }
+         ?>
+         </select><br>&nbsp
+         <div class="form-group">
+         <h5><strong>Employee Designation </strong><span style="color: red">*</span></h5> 
+         <br>&nbsp  
+         <?php
+         $res = mysqli_query($conn,"select * from designation_details");
+         foreach ($res as $res1) 
+         {
+          $des_id =$res1['designation_id'];
+         ?>
+         <div class="controls">
+         <div class="skin skin-square">
+         <input type="checkbox" name="designatio[]" value="<?php echo $res1['designation_id'];?>">
+        <label for="<?php echo $res1['designation_id'];?>"><?php echo $res1['designation_name'];?></label>
+        </div>
+        </div>
+          <?php
+        }
+        ?>
+      </div>
+        
+      </div>
        </div>
-    </div>
-    <!-- end of desig -->
+        <div class="text-right">
+        <button type="submit" name="submit1" class="btn btn-success">Submit <i class="ft-thumbs-up position-right"></i></button>
+      </div>
+      </form>
+    <!-- end of employee designation -->
     <div id="view" class="container tab-pane fade"><br>
      <!--  view div -->
       <div>
@@ -217,13 +251,13 @@ include('header.php');
         <input type="text" class="form-control" id="basicInput" >
     </div>
         </fieldset>
+        <button name="submit">submit</button>
         </div>
     </div>
  <!--  </div>-->
 </div> 
         </div>
       </div>
-   </form>
     <!-- ////////////////////////////////////////////////////////////////////////////-->
 
 <?php
