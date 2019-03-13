@@ -1,63 +1,42 @@
-    <?php
-    include('dbconnect.php');
-    session_start();
+<?php 
+include('dbconnect.php');
+session_start();
     $owner_id=$_SESSION['owner_id'];
     $garage_id='';
-    $vendor_id='';
+ 
     $owner_info=mysqli_query($conn,"select * from garage_details where owner_id='$owner_id'");
     foreach ($owner_info as $info)
     {
         $garage_id=$info['garage_id'];
     }
 
-    if (isset($_POST['add_vendor']))
+ if (isset($_POST['add_spare']))
     {
-        $vendor_company_name=$_POST['vendor_company_name'];
-        $vendor_mobile=$_POST['vendor_mobile'];
-        $vendor_email=$_POST['vendor_email'];
-        $vendor_address=$_POST['vendor_address'];
-        $vendor_landline=$_POST['vendor_landline'];
-        $vendor_gst_no=$_POST['vendor_gst_no'];
+        $spare_vendor_id=$_POST['spare_vendor_id'];
+        $spare_part_name=$_POST['spare_part_name'];
+        $spare_part_no=$_POST['spare_part_no'];
+        $spare_oem_id=$_POST['spare_oem_id'];
+        $spare_oem_model_id=$_POST['spare_oem_model_id'];
+        $spare_gstin=$_POST['spare_gstin'];
+        $spare_hsn=$_POST['spare_hsn'];
+        $spare_amount=$_POST['spare_amount'];
+        $spare_gst_percentage=$_POST['spare_gst_percentage'];
+        $spare_gst_amount=$_POST['spare_gst_amount'];
+        $spare_total_amount=$_POST['spare_total_amount'];
+        $spare_status='0';
 
-        $vendor_contact_name=$_POST['vendor_contact_name'];
-        $vendor_contact_mobile=$_POST['vendor_contact_mobile'];
-        $vendor_contact_email=$_POST['vendor_contact_email'];
-        $vendor_contact_landline=$_POST['vendor_contact_landline'];
+     
 
 
-        $vendor_insert=mysqli_query($conn,"insert into vendor_information values(null,'$garage_id','$vendor_company_name','$vendor_mobile','$vendor_email','$vendor_address','$vendor_landline','$vendor_gst_no','0')");
+        $spare_insert=mysqli_query($conn,"insert into spares_details values(null,'$garage_id','$spare_vendor_id','$spare_part_name','$spare_part_no','$spare_oem_id','$spare_oem_model_id','$spare_gstin','$spare_hsn','$spare_amount','$spare_gst_percentage','$spare_gst_amount','$spare_total_amount','$spare_status')");
+
+        echo "insert into spares_details values(null,'$garage_id','$spare_vendor_id','$spare_part_name','$spare_part_no','$spare_oem_id','$spare_oem_model_id','$spare_gstin','$spare_hsn','$spare_amount','$spare_gst_percentage','$spare_gst_amount','$spare_total_amount','$spare_status')";
 
 
-        $last_rec=mysqli_query($conn,"select * from vendor_information where garage_id='$garage_id' order by vendor_id  desc limit 1");
 
-        foreach($last_rec as $vendor_last_rec)
-        {
-            $vendor_id=$vendor_last_rec['vendor_id'];
-        }
-
-        $vendor_contact_insert=mysqli_query($conn,"insert into vendor_contact_information values(null,'$garage_id','$vendor_id','$vendor_contact_name','$vendor_contact_mobile','$vendor_contact_email','$vendor_contact_landline','0') ");
-
-        // SELECT * FROM Table ORDER BY ID DESC LIMIT 1
-
-        header('Location:vendor-information.php');
+      header('Location:spare.php');
 
     }
-
-
-    if(isset($_POST['add_contact']))
-    {
-        $vendor_company_name1=$_POST['vendor_company_name1'];
-        $vendor_contact_name1=$_POST['vendor_contact_name1'];
-        $vendor_contact_mobile1=$_POST['vendor_contact_mobile1'];
-        $vendor_contact_email1=$_POST['vendor_contact_email1'];
-        $vendor_contact_landline1=$_POST['vendor_contact_landline1'];
-        $vendor_contact_insert1=mysqli_query($conn,"insert into vendor_contact_information values(null,'$garage_id','$vendor_company_name1','$vendor_contact_name1','$vendor_contact_mobile1','$vendor_contact_email1','$vendor_contact_landline1','0') ");
-        header('Location:vendor-information.php');
-
-    }
-
-
-
     ?>
 
 
@@ -123,7 +102,7 @@
                             <div class="card">
 
                                 <div class="card-header">
-                                    <h4 class="card-title">Vendor Information</h4>
+                                    <h4 class="card-title">Spares Information</h4>
                                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
@@ -139,19 +118,15 @@
 
                                         <li class="nav-item active">
 
-                                            <a class="nav-link active show"  id="home-tab" data-toggle="tab" href="#create" role="tab" aria-controls="home" aria-selected="true">Add Vendor</a>
+                                            <a class="nav-link active show"  id="home-tab" data-toggle="tab" href="#create" role="tab" aria-controls="home" aria-selected="true">Add Spares</a>
 
                                         </li>
 
-                                        <li class="nav-item">
-
-                                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="profile" aria-selected="false">Add Contact</a>
-
-                                        </li>
+                                       
 
                                         <li class="nav-item">
 
-                                            <a class="nav-link" id="profile-tab" onclick="veiw()" data-toggle="tab" href="#view" role="tab" aria-controls="profile" aria-selected="false">View Vendors</a>
+                                            <a class="nav-link" id="profile-tab" onclick="veiw()" data-toggle="tab" href="#view" role="tab" aria-controls="profile" aria-selected="false">View/Search</a>
 
                                         </li>
 
@@ -165,151 +140,135 @@
                                             <div class="card-body">
                                                 <form method="post">
                                                     <div class="row">
+                                                        <div class="col-md-4">
+                  <div class="form-group">
+
+                    <!-- Fetching vendor Details  -->
+
+             
+               <label for="basicInput">Choose Vendors</label>
+              <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons" name="spare_vendor_id">
+                  <option selected disabled>Choose Vendor</option>    
+               <?php
+               $vendor=mysqli_query($conn,"select * from vendor_information where garage_id='$garage_id'");
+               foreach ($vendor as $doc) 
+               {
+                 
+               ?>
+                  <option value="<?php echo $doc['vendor_id']; ?>" data-icon="wordpress2" ><?php echo $doc['vendor_company_name'];?></option>
+                  <?php
+                }
+                ?>
+                
+              </select>
+            </div>
+          </div>
 
                                                         <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                                                             <fieldset class="form-group">
-                                                                <label for="basicInput">Company Name</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="vendor_company_name">
+                                                                <label for="basicInput">Part Name</label>
+                                                                <input type="text" class="form-control" id="basicInput" name="spare_part_name" >
                                                             </fieldset>
                                                         </div>
                                                         <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                                                             <fieldset class="form-group">
-                                                                <label for="basicInput">Mobile</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="vendor_mobile" >
+                                                                <label for="basicInput">Part Number</label>
+                                                                <input type="text" class="form-control" id="basicInput" name="spare_part_no">
                                                             </fieldset>
                                                         </div>
-                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInput">Email</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="vendor_email">
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInput">Address</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="vendor_address">
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInput">Landline</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="vendor_landline" >
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInput">GST Number</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="vendor_gst_no">
-                                                            </fieldset>
-                                                        </div>
-                                                    </div>
-                                                    <hr>           
-                                                    <div class="card-header">
-                                                        <h4 class="card-title">Contact Information</h4>
-                                                    </div>
-                                                    <hr>
-                                                    <br>
-                                                    <div class="row">
-                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInput">Contact Person</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="vendor_contact_name" >
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInput">Mobile</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="vendor_contact_mobile" >
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInput">Email</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="vendor_contact_email" >
-                                                            </fieldset>
-                                                        </div>
+                                                        <div class="col-md-4">
+                                                        <div class="form-group">
+
+                    <!-- Fetching OEM Details  -->
+
+                            <label for="basicInput">Choose OEM</label>
+              <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons" name="spare_oem_id">
+                  <option selected disabled>Choose OEM</option>    
+               <?php
+               $oem=mysqli_query($conn,"select * from oem_details");
+               foreach ($oem as $doc) 
+               {
+                 
+               ?>
+                  <option value="<?php echo $doc['oem_id']; ?>" data-icon="wordpress2" ><?php echo $doc['oem_name'];?></option>
+                  <?php
+                }
+                ?>
+                
+              </select>
+            </div>
+          </div>
+        <div class="col-md-4">
+        <div class="form-group">
+
+                    <!-- Fetching Vehicle Model Details  -->
+
+                            <label for="basicInput">Choose Vehicle Model</label>
+              <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons" name="spare_oem_model_id">
+                  <option selected disabled>Choose Vehicle Model</option>    
+               <?php
+               $oem_mod=mysqli_query($conn,"select * from oem_model_details");
+               foreach ($oem_mod as $doc) 
+               {
+                 
+               ?>
+                  <option value="<?php echo $doc['oem_model_id']; ?>" data-icon="wordpress2" ><?php echo $doc['oem_model_name'];?></option>
+                  <?php
+                }
+                ?>
+                
+              </select>
+            </div>
+          </div>
 
                                                         <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                                                             <fieldset class="form-group">
-                                                                <label for="basicInput">Landline</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="vendor_contact_landline" >
+                                                                <label for="basicInput">GSTIN</label>
+                                                                <input type="text" class="form-control" id="basicInput" name="spare_gstin">
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                                            <fieldset class="form-group">
+                                                                <label for="basicInput">HSN</label>
+                                                                <input type="text" class="form-control" id="basicInput" name="spare_hsn">
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                                            <fieldset class="form-group">
+                                                                <label for="basicInput">MRP</label>
+                                                                <input type="text" class="form-control" id="basicInput" name="spare_amount">
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                                            <fieldset class="form-group">
+                                                                <label for="basicInput">GST %</label>
+                                                                <input type="text" class="form-control" id="basicInput" name="spare_gst_percentage">
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                                            <fieldset class="form-group">
+                                                                <label for="basicInput">GST Amount</label>
+                                                                <input type="text" class="form-control" id="basicInput" name="spare_gst_amount">
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+                                                            <fieldset class="form-group">
+                                                                <label for="basicInput">Total Amount</label>
+                                                                <input type="text" class="form-control" id="basicInput" name="spare_total_amount">
                                                             </fieldset>
                                                         </div>
                                                         <div class="col-sm-12 mb-1">
-                                                            <button class="btn btn-primary float-right" type="submit" name="add_vendor" value="add_vendor"> Submit</button>
-                                                        </div>
-
-
-
-
+                                                <button class="btn btn-primary float-right" type="submit" name="add_spare" value="add_spare"> Submit</button>
+                                            </div>
                                                     </div>
+                                                    
                                                 </form>
                                             </div>
                                         </div>
 
 
 
-                                        <div class="card-content tab-pane" id="contact">
-                                            <div class="card-body">
-                                               <form method="post">
-                                                <div class="row">
-
-                                                    <div class="col-md-4">
-                                                      <div class="form-group">
-
-                                                        <!-- Fetching Vendor Details to add New contact Person Details -->
-
-
-                                                        <label for="basicInput">Choose Vendor</label>
-                                                        <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons" name="vendor_company_name1">
-                                                          <option selected disabled>Choose Vendor</option>    
-                                                          <?php
-                                                          $vendor=mysqli_query($conn,"select * from vendor_information");
-                                                          foreach ($vendor as $doc) 
-                                                          {
-
-                                                             ?>
-                                                             <option value="<?php echo $doc['vendor_id']; ?>" data-icon="wordpress2" ><?php echo $doc['vendor_company_name'];?></option>
-                                                             <?php
-                                                         }
-                                                         ?>
-
-                                                     </select>
-                                                 </div>
-                                             </div>
-                                             <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                <fieldset class="form-group">
-                                                    <label for="basicInput">Contact Person Name</label>
-                                                    <input type="text" class="form-control" id="basicInput" name="vendor_contact_name1" >
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                <fieldset class="form-group">
-                                                    <label for="basicInput">Mobile</label>
-                                                    <input type="text" class="form-control" id="basicInput" name="vendor_contact_mobile1" >
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                <fieldset class="form-group">
-                                                    <label for="basicInput">Email</label>
-                                                    <input type="text" class="form-control" id="basicInput" name="vendor_contact_email1" >
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                <fieldset class="form-group">
-                                                    <label for="basicInput">Landline</label>
-                                                    <input type="text" class="form-control" id="basicInput" name="vendor_contact_landline1" >
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-sm-12 mb-1">
-                                                <button class="btn btn-primary float-right" type="submit" name="add_contact" value="add_contact"> Submit</button>
-                                            </div>
-
-
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                                       
                             <div class="card-content tab-pane" id="view">
                                 <div class="card-body">
 
@@ -320,12 +279,14 @@
                                               <thead>
                                                 <tr>
                                                   <th>#</th>
-                                                  <th>Company Name</th>
-                                                  <th>Mobile</th>
-                                                  <th>Email</th>
-                                                  <th>Landline</th>
-                                                  <th>GST Number</th>
-                                                  <th> View Contacts</th>
+                                                  <th>Spare ID</th>
+                                                  <th>Vendor Name</th>
+                                                  <th>Part Name</th>
+                                                  <th>Part Number</th>                                                  
+                                                  <th>GSTIN</th>
+                                                  <th>HSN</th>
+                                                  <th> MRP </th>                                                  
+                                                  <th> GST % </th>
                                                   <th>Edit</th>
 
 
@@ -334,43 +295,44 @@
                                           </thead>
                                           <tbody>
                                             <?php
-                                            $i=1;
+                                            $i=0;
 
-                                            $sql=mysqli_query($conn,"select * from vendor_information where garage_id='$garage_id'");
+                                            $sql=mysqli_query($conn,"select * from spares_details s,vendor_information v,oem_details o, oem_model_details m where s.vendor_id=v.vendor_id and s.oem_id=o.oem_id and s.oem_model_id=m.oem_model_id and o.oem_id=m.oem_id and s.garage_id='$garage_id'");
                                             foreach($sql as $doc) 
                                             {
 
 
                                                 ?>               
                                                 <tr>
-                                                  <td><?php echo $i;?></td>
+                                                  <td><?php echo $i=$i+1;?></td>
+                                                  <td><?php echo "spare code " ?></td>
                                                   <td><?php echo $doc['vendor_company_name']; ?></td>
-                                                  <td><?php echo $doc['vendor_mobile']; ?></td>
-                                                  <td><?php echo $doc['vendor_email']; ?></td>
-                                                  <td><?php echo $doc['vendor_landline_no']; ?></td>
-                                                  <td><?php echo $doc['vendor_gst_no']; ?></td>
-                                                  <form action="view-vendor-contacts.php" method="post" target="_blank">
-                                                    <input type="hidden" name="hide" value="<?php echo $doc['vendor_id']; ?>" >
-                                                    <td><button class="btn btn-primary float-right" type="submit" name="view_contacts" value="view_contacts">View Contacts</button></td>
-                                                </form>
+                                                  <td><?php echo $doc['spare_part_name']; ?></td>
+                                                  <td><?php echo $doc['spare_part_no']; ?></td>
+                                                  <td><?php echo $doc['spare_gstin']; ?></td>
+                                                 <td><?php echo $doc['spare_hsn']; ?></td>
+                                                 <td><?php echo $doc['spare_amount']; ?></td>
+                                                 <td><?php echo $doc['spare_gst_percentage']; ?></td>
                                                 <td><button class="btn btn-primary float-right" type="submit" name="edit_contacts" value="edit_contacts">Edit</button></td>
 
                                             </tr>
 
                                             <?php
-                                            $i=$i+1;
+                                            
                                         }
                                         ?> 
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>#</th>
-                                            <th>Company Name</th>
-                                            <th>Mobile</th>
-                                            <th>Email</th>
-                                            <th>Landline</th>
-                                            <th>GST Number</th>
-                                            <th>View Contacts</th>
+                                            <th>Spare ID</th>
+                                                  <th>Vendor Name</th>
+                                                  <th>Part Name</th>
+                                                  <th>Part Number</th>                                                  
+                                                  <th>GSTIN</th>
+                                                  <th>HSN</th>
+                                                  <th> MRP </th>                                                  
+                                                  <th> GST % </th>
                                             <th>Edit</th>
                                         </tr>
                                     </tfoot>
