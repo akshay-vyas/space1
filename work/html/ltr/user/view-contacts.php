@@ -1,19 +1,22 @@
 <?php
-
-//Inserting Repair Types
-
 include('dbconnect.php');
-if(isset($_POST['add_repair_type']))
-{
-  $repair_name=$_POST['repair_name'];
-  $repair_id_status='0';
-
-  $add_repair_type=mysqli_query($conn,"insert into repair_types values(null,'$repair_name','$repair_id_status')");
+session_start();
+$owner_id=$_SESSION['owner_id'];
+$garage_id='';
+$vendor_id=$_POST['hide'];
+$owner_info=mysqli_query($conn,"select * from garage_details where owner_id='$owner_id'");
+foreach ($owner_info as $info)
+ {
+$garage_id=$info['garage_id'];
 }
 
 
 
+
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
@@ -36,6 +39,9 @@ if(isset($_POST['add_repair_type']))
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/weather-icons/climacons.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/fonts/meteocons/style.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/charts/morris.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/datatable/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/extensions/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css">
     <!-- END VENDOR CSS-->
     <!-- BEGIN STACK CSS-->
     <link rel="stylesheet" type="text/css" href="../../../app-assets/css/app.min.css">
@@ -65,104 +71,34 @@ include('header.php');
     <div class="app-content content">
       <div class="content-wrapper">
         <div class="content-header row">
-
         </div>
+        <div class="content-body">
+<section class="basic-elements">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
 
-<!--/ Basic Horizontal Timeline -->
-
-         <div class="content-body">
-    <section id="html5">
-  <div class="row">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title">Add Repair Types</h4>
-          <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-          <div class="heading-elements">
-            <ul class="list-inline mb-0">
-              <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-              <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-              <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-              <li><a data-action="close"><i class="ft-x"></i></a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="card-content collapse show">
-          <div class="card-body card-dashboard">
-       
-              <form class="form" method="post">
-              <div class="form-body">
+                <div class="card-header">
+                    <h4 class="card-title">Contact Information</h4>
+                </div>
+            
+                        <div class="tab-content">
               
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                       <div class="input-group">
-                       
-                <input type="text" class="form-control" placeholder="Enter Repair Type Name" name="repair_name" aria-describedby="button-addon2">
-                <div class="input-group-append" id="button-addon2">
-                  <button class="btn btn-primary" type="submit" id="userinput2" class="btn btn-primary" name="add_repair_type" value="submit"><i class="fa fa-check-square-o"></i>  Add</button>
-                </div>
-              </div>
-                    
-                    </div>
-                  </div>
-
-
-
-
                 
-                
-                </div>
-                
-
-                
-
-              </div>
-
-          
-            </form>       
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-
-
-    <div class="content-body">
-    <section id="html5">
-  <div class="row">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title">Repair Type Details</h4>
-          <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
-          <div class="heading-elements">
-            <ul class="list-inline mb-0">
-              <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-              <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-              <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-              <li><a data-action="close"><i class="ft-x"></i></a></li>
-            </ul>
-          </div>
-        </div>
+                    <div class="card-body">
+                     
         <div class="card-content collapse show">
           <div class="card-body card-dashboard">
-
-
-<!-- Fetching Repair Types -->
-       
-            <table class="table table-striped table-bordered dataex-html5-export">
+            <div class="table-responsive">
+                         <table class="table table-striped table-bordered dataex-html5-export">
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Repair Type Name</th>
-                  
+                  <th>Name</th>
+                  <th>Mobile</th>
+                  <th>Email</th>
+                  <th>Landline</th>
                   <th>Edit</th>
-                  <th>Delete</th>
                   
 
                   
@@ -172,17 +108,20 @@ include('header.php');
                 <?php
                 $i=1;
 
-                $sql=mysqli_query($conn,"select * from repair_types");
-                foreach ($sql as $doc) 
+                $sql=mysqli_query($conn,"select * from vendor_information v, vendor_contact_information c where v.garage_id = c.garage_id and v.vendor_id = c.vendor_id and  c.vendor_id='$vendor_id'");
+                foreach($sql as $doc) 
                 {
                   
 
                 ?>               
                 <tr>
                   <td><?php echo $i;?></td>
-                  <td><?php echo $doc['repair_name']; ?></td>
-                  <td>Edit</td>
-                  <td>Delete</td>
+                  <td><?php echo $doc['vendor_company_name']; ?></td>
+                  <td><?php echo $doc['vendor_mobile']; ?></td>
+                  <td><?php echo $doc['vendor_email']; ?></td>
+                   <td><?php echo $doc['vendor_landline_no']; ?></td>
+
+                  <td><button class="btn btn-primary float-right" type="submit" name="edit_contacts" value="edit_contacts">Edit</button></td>
                  
                 </tr>
                 
@@ -194,22 +133,35 @@ include('header.php');
               <tfoot>
                 <tr>
                 <th>#</th>
-                  <th>Repair Type Name</th>
-                   <th>Edit</th>
-                  <th>Delete</th>
+                  <th>Company Name</th>
+                  <th>Mobile</th>
+                  <th>Email</th>
+                  <th>Landline</th>
+                  <th>Edit</th>
                 </tr>
               </tfoot>
-            </table>        
-          </div>
+            </table> 
+        </div>
+        </div>
+    </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+
+
+            </div>
+        </div>
+ 
+</section>
+</div>
+<!--/ Basic Horizontal Timeline -->
+
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-</div>
-    </div>
-  </div>
    
     <!-- ////////////////////////////////////////////////////////////////////////////-->
 
@@ -217,7 +169,7 @@ include('header.php');
 include('theme.php');
 
 ?>
-    <div class="buy-now"><a href="#" target="_blank" class="btn bg-gradient-directional-purple white btn-purple btn-glow px-2">Buy Now</a></div>
+    <div class="buy-now"><a href="https://goo.gl/nJZ5V1" target="_blank" class="btn bg-gradient-directional-purple white btn-purple btn-glow px-2">Buy Now</a></div>
 
    <?php include('footer.php'); ?>
 
@@ -230,6 +182,17 @@ include('theme.php');
     <script src="../../../app-assets/js/core/app.min.js"></script>
     <script src="../../../app-assets/js/scripts/customizer.min.js"></script>
     <script src="../../../app-assets/js/scripts/pages/dashboard-ecommerce.min.js"></script>
+     <script src="../../../app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
+    <script src="../../../app-assets/vendors/js/tables/datatable/dataTables.buttons.min.js"></script>
+    <script src="../../../app-assets/vendors/js/tables/datatable/buttons.bootstrap4.min.js"></script>
+    <script src="../../../app-assets/vendors/js/tables/jszip.min.js"></script>
+    <script src="../../../app-assets/vendors/js/tables/pdfmake.min.js"></script>
+    <script src="../../../app-assets/vendors/js/tables/vfs_fonts.js"></script>
+    <script src="../../../app-assets/vendors/js/tables/buttons.html5.min.js"></script>
+    <script src="../../../app-assets/vendors/js/tables/buttons.print.min.js"></script>
+    <script src="../../../app-assets/vendors/js/tables/buttons.colVis.min.js"></script>
+    <script src="../../../app-assets/js/scripts/tables/datatables-extensions/datatable-button/datatable-html5.min.js"></script>
+    <script src="../../../app-assets/js/scripts/tables/datatables-extensions/datatable-button/datatable-visibility.min.js"></script>
   </body>
 
 <!-- Mirrored from pixinvent.com/stack-responsive-bootstrap-4-admin-template/html/ltr/vertical-modern-menu-template/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Mar 2019 20:03:18 GMT -->
