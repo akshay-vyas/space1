@@ -95,7 +95,7 @@ if(isset($_POST['register']))
                         </form>
                     </div>
                     <div class="card-body pt-0">
-                        <a href="login-with-bg.html" class="btn btn-outline-danger btn-block"><i class="ft-unlock"></i> Login</a>
+                        <a href="login.php" class="btn btn-outline-danger btn-block"><i class="ft-unlock"></i> Login</a>
                     </div>
                 </div>
             </div>
