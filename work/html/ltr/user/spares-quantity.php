@@ -1,6 +1,7 @@
 <?php 
 include('dbconnect.php');
 session_start();
+error_reporting(0);
     $owner_id=$_SESSION['owner_id'];
     $garage_id='';
  
@@ -10,31 +11,23 @@ session_start();
         $garage_id=$info['garage_id'];
     }
 
- if (isset($_POST['add_spare']))
+ if (isset($_POST['add_spare_quantity']))
     {
-        $spare_vendor_id=$_POST['spare_vendor_id'];
-        $spare_part_name=$_POST['spare_part_name'];
-        $spare_part_no=$_POST['spare_part_no'];
-        $spare_oem_id=$_POST['spare_oem_id'];
-        $spare_oem_model_id=$_POST['spare_oem_model_id'];
-        $spare_gstin=$_POST['spare_gstin'];
-        $spare_hsn=$_POST['spare_hsn'];
-        $spare_amount=$_POST['spare_amount'];
-        $spare_gst_percentage=$_POST['spare_gst_percentage'];
-        $spare_gst_amount=$_POST['spare_gst_amount'];
-        $spare_total_amount=$_POST['spare_total_amount'];
-        $spare_status='0';
+        
+        $spare_id=$_POST['spare_partid'];
+        $spare_quantity=$_POST['spare_quantity'];
+        $spare_quantity_status='0';
 
      
 
 
-        $spare_insert=mysqli_query($conn,"insert into spares_details values(null,'$garage_id','$spare_vendor_id','$spare_part_name','$spare_part_no','$spare_oem_id','$spare_oem_model_id','$spare_gstin','$spare_hsn','$spare_amount','$spare_gst_percentage','$spare_gst_amount','$spare_total_amount','$spare_status')");
+        $spare_insert=mysqli_query($conn,"insert into spares_quantity_details values(null,'$spare_id','$spare_quantity','$spare_quantity_status')");
 
-        echo "insert into spares_details values(null,'$garage_id','$spare_vendor_id','$spare_part_name','$spare_part_no','$spare_oem_id','$spare_oem_model_id','$spare_gstin','$spare_hsn','$spare_amount','$spare_gst_percentage','$spare_gst_amount','$spare_total_amount','$spare_status')";
+     
 
 
 
-      header('Location:spare.php');
+      header('Location:spares-quantity.php');
 
     }
     ?>
@@ -79,6 +72,9 @@ session_start();
         <!-- BEGIN Custom CSS-->
         <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
         <!-- END Custom CSS-->
+        <!-- ajax -->
+          <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+
     </head>
     <body class="vertical-layout vertical-menu-modern 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
@@ -102,7 +98,7 @@ session_start();
                             <div class="card">
 
                                 <div class="card-header">
-                                    <h4 class="card-title">Spares Information</h4>
+                                    <h4 class="card-title">Spares Quantity</h4>
                                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
@@ -118,7 +114,7 @@ session_start();
 
                                         <li class="nav-item active">
 
-                                            <a class="nav-link active show"  id="home-tab" data-toggle="tab" href="#create" role="tab" aria-controls="home" aria-selected="true">Add Spares</a>
+                                            <a class="nav-link active show"  id="home-tab" data-toggle="tab" href="#create" role="tab" aria-controls="home" aria-selected="true">Add Spares Quantity</a>
 
                                         </li>
 
@@ -146,17 +142,18 @@ session_start();
                     <!-- Fetching vendor Details  -->
 
              
-               <label for="basicInput">Choose Vendors</label>
-              <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons" name="spare_vendor_id">
-                  <option selected disabled>Choose Vendor</option>    
+               <label for="basicInput">Spare Part Name</label>
+              <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons" name="spare_id" onChange="getPartInfo(this.value)">
+                  <option selected disabled>Choose Part Name</option>    
                <?php
-               $vendor=mysqli_query($conn,"select * from vendor_information where garage_id='$garage_id'");
-               foreach ($vendor as $doc) 
+               $part=mysqli_query($conn,"select * from spares_details where garage_id='$garage_id'");
+               foreach ($part as $doc) 
                {
                  
                ?>
-                  <option value="<?php echo $doc['vendor_id']; ?>" data-icon="wordpress2" ><?php echo $doc['vendor_company_name'];?></option>
+                  <option value="<?php echo $doc['spare_id']; ?>" data-icon="wordpress2" ><?php echo $doc['spare_part_name'];?></option>
                   <?php
+
                 }
                 ?>
                 
@@ -164,101 +161,19 @@ session_start();
             </div>
           </div>
 
-                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInput">Part Name</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="spare_part_name" >
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInput">Part Number</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="spare_part_no">
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                        <div class="form-group">
 
-                    <!-- Fetching OEM Details  -->
 
-                            <label for="basicInput">Choose OEM</label>
-              <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons" name="spare_oem_id">
-                  <option selected disabled>Choose OEM</option>    
-               <?php
-               $oem=mysqli_query($conn,"select * from oem_details");
-               foreach ($oem as $doc) 
-               {
-                 
-               ?>
-                  <option value="<?php echo $doc['oem_id']; ?>" data-icon="wordpress2" ><?php echo $doc['oem_name'];?></option>
-                  <?php
-                }
-                ?>
-                
-              </select>
-            </div>
+          <div class="col-md-4" id="ajax-info">
+
           </div>
-        <div class="col-md-4">
-        <div class="form-group">
+                                                    
 
-                    <!-- Fetching Vehicle Model Details  -->
 
-                            <label for="basicInput">Choose Vehicle Model</label>
-              <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons" name="spare_oem_model_id">
-                  <option selected disabled>Choose Vehicle Model</option>    
-               <?php
-               $oem_mod=mysqli_query($conn,"select * from oem_model_details");
-               foreach ($oem_mod as $doc) 
-               {
-                 
-               ?>
-                  <option value="<?php echo $doc['oem_model_id']; ?>" data-icon="wordpress2" ><?php echo $doc['oem_model_name'];?></option>
-                  <?php
-                }
-                ?>
-                
-              </select>
-            </div>
-          </div>
 
-                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInput">GSTIN</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="spare_gstin">
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInput">HSN</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="spare_hsn">
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInput">MRP</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="spare_amount">
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInput">GST %</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="spare_gst_percentage">
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInput">GST Amount</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="spare_gst_amount">
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-                                                            <fieldset class="form-group">
-                                                                <label for="basicInput">Total Amount</label>
-                                                                <input type="text" class="form-control" id="basicInput" name="spare_total_amount">
-                                                            </fieldset>
-                                                        </div>
+
+                                                  
                                                         <div class="col-sm-12 mb-1">
-                                                <button class="btn btn-primary float-right" type="submit" name="add_spare" value="add_spare"> Submit</button>
+                                                <button class="btn btn-primary float-right" type="submit" name="add_spare_quantity" value="add_spare_quantity"> Submit</button>
                                             </div>
                                                     </div>
                                                     
@@ -287,6 +202,7 @@ session_start();
                                                   <th>HSN</th>
                                                   <th> MRP </th>                                                  
                                                   <th> GST % </th>
+                                                  <th>Quantity</th>
                                                   <th>Edit</th>
 
 
@@ -297,7 +213,7 @@ session_start();
                                             <?php
                                             $i=0;
 
-                                            $sql=mysqli_query($conn,"select * from spares_details s,vendor_information v,oem_details o, oem_model_details m where s.vendor_id=v.vendor_id and s.oem_id=o.oem_id and s.oem_model_id=m.oem_model_id and o.oem_id=m.oem_id and s.garage_id='$garage_id'");
+                                            $sql=mysqli_query($conn,"select * from spares_quantity_details q,spares_details s,vendor_information v where q.spare_id=s.spare_id and s.vendor_id=v.vendor_id and s.garage_id='$garage_id'");
                                             foreach($sql as $doc) 
                                             {
 
@@ -313,6 +229,7 @@ session_start();
                                                  <td><?php echo $doc['spare_hsn']; ?></td>
                                                  <td><?php echo $doc['spare_amount']; ?></td>
                                                  <td><?php echo $doc['spare_gst_percentage']; ?></td>
+                                                 <td><?php echo $doc['spare_quantity'] ?></td>
                                                 <td><button class="btn btn-primary float-right" type="submit" name="edit_contacts" value="edit_contacts">Edit</button></td>
 
                                             </tr>
@@ -325,7 +242,7 @@ session_start();
                                     <tfoot>
                                         <tr>
                                             <th>#</th>
-                                            <th>Spare ID</th>
+                                         <th>Spare ID</th>
                                                   <th>Vendor Name</th>
                                                   <th>Part Name</th>
                                                   <th>Part Number</th>                                                  
@@ -333,6 +250,7 @@ session_start();
                                                   <th>HSN</th>
                                                   <th> MRP </th>                                                  
                                                   <th> GST % </th>
+                                                  <th>Quantity</th>
                                             <th>Edit</th>
                                         </tr>
                                     </tfoot>
@@ -390,6 +308,28 @@ include('theme.php');
 <script src="../../../app-assets/vendors/js/tables/buttons.colVis.min.js"></script>
 <script src="../../../app-assets/js/scripts/tables/datatables-extensions/datatable-button/datatable-html5.min.js"></script>
 <script src="../../../app-assets/js/scripts/tables/datatables-extensions/datatable-button/datatable-visibility.min.js"></script>
+
+
+
+
+<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script>
+function getPartInfo(val) {
+  $.ajax({
+  type: "POST",
+  url: "ajax-spares-info.php",
+  data:'spare_id='+val,
+  success: function(data){
+    $("#ajax-info").html(data);
+  }
+  });
+}
+
+function selectCountry(val) {
+$("#search-box").val(val);
+$("#suggesstion-box").hide();
+}
+</script>
 </body>
 
 <!-- Mirrored from pixinvent.com/stack-responsive-bootstrap-4-admin-template/html/ltr/vertical-modern-menu-template/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Mar 2019 20:03:18 GMT -->

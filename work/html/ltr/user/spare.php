@@ -30,7 +30,7 @@ session_start();
 
         $spare_insert=mysqli_query($conn,"insert into spares_details values(null,'$garage_id','$spare_vendor_id','$spare_part_name','$spare_part_no','$spare_oem_id','$spare_oem_model_id','$spare_gstin','$spare_hsn','$spare_amount','$spare_gst_percentage','$spare_gst_amount','$spare_total_amount','$spare_status')");
 
-        echo "insert into spares_details values(null,'$garage_id','$spare_vendor_id','$spare_part_name','$spare_part_no','$spare_oem_id','$spare_oem_model_id','$spare_gstin','$spare_hsn','$spare_amount','$spare_gst_percentage','$spare_gst_amount','$spare_total_amount','$spare_status')";
+  
 
 
 
