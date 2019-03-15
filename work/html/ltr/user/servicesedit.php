@@ -9,20 +9,26 @@ foreach ($owner_info as $info)
 $garage_id=$info['garage_id'];
 }
 
-if (isset($_POST['add_service']))
-{
-    $service_name=$_POST['service_name'];
-    $labour_charge=$_POST['labour_charge'];
-    $gst_percent=$_POST['gst_percent'];
-    $gst_amt=$_POST['gst_amt'];
-    $total_amt=$_POST['total_amt'];
+
+$sid = $_POST['id'];
+// $sql = "select * from service_details where service_id ='$sid'";
+$ser=mysqli_query($conn,"select * from service_details where service_id ='$sid'");
+
+  
+// if (isset($_POST['add_service']))
+// {
+//     $service_name=$_POST['service_name'];
+//     $labour_charge=$_POST['labour_charge'];
+//     $gst_percent=$_POST['gst_percent'];
+//     $gst_amt=$_POST['gst_amt'];
+//     $total_amt=$_POST['total_amt'];
    
 
-    $service_insert=mysqli_query($conn,"insert into service_details values(null,'$garage_id','$service_name','$labour_charge','$gst_percent','$gst_amt','$total_amt','0')");
+//     $service_insert=mysqli_query($conn,"insert into service_details values(null,'$garage_id','$service_name','$labour_charge','$gst_percent','$gst_amt','$total_amt','0')");
 
-header('Location:services.php');
+// header('Location:services.php');
 
-}
+// }
 
 
 ?>
@@ -93,20 +99,9 @@ include('header.php');
 
                             <li class="nav-item active">
 
-                                <a class="nav-link active show"  id="home-tab" data-toggle="tab" href="#create" role="tab" aria-controls="home" aria-selected="true">Add Services</a>
+                                <a class="nav-link active show"  id="home-tab" data-toggle="tab" href="#create" role="tab" aria-controls="home" aria-selected="true">Edit Services</a>
 
                             </li>
-
-                            <li class="nav-item">
-
-                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#view" role="tab" aria-controls="profile" aria-selected="false">View Services</a>
-
-                            </li>
-
-                            
-
-
-
                         </ul>
 
 
@@ -115,17 +110,25 @@ include('header.php');
                     <div class="card-body">
                         <form method="post">
                         <div class="row">
+                <?php
+                
 
+                $ser=mysqli_query($conn,"select * from service_details where service_id ='$sid'");
+                foreach($ser as $doc) 
+                {
+                  
+
+                ?>  
                            <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                                 <fieldset class="form-group">
-                                    <label for="basicInput">Service Name</label>
-                                    <input type="text" class="form-control" id="basicInput" name="service_name" required>
+                                    <label for="basicInput">Service Name </label>
+                                    <input type="text" class="form-control" id="basicInput" value="<?php echo $doc['service_name'] ?>" name="service_name" required>
                                 </fieldset>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                                 <fieldset class="form-group">
                                     <label for="basicInput">Actual Labour Charge</label>
-                                    <input type="text" class="form-control" id="basicInput" name="labour_charge" required>
+                                    <input type="text" class="form-control" id="basicInput" value="<?php echo $doc['labour_charge'] ?>" name="labour_charge" required>
                                 </fieldset>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
@@ -134,7 +137,7 @@ include('header.php');
                                     <label for="basicInput">GST(%)</label>
                                                         
                         <select class="form-control" id="basicInput" name="gst_percent" readonly>
-                             <option value="0">0</option>
+                            <option value="0">0</option>
                             <option value="5">5</option>
                             <option value="12">12</option>
                             <option value="18">18</option>
@@ -143,16 +146,20 @@ include('header.php');
                          </select>
                                 </fieldset>
                             </div>
+                            <?php
+               
+               }
+               ?> 
                             <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                                 <fieldset class="form-group">
                                     <label for="basicInput">GST Amount</label>
-                                    <input type="text" class="form-control" id="basicInput" name="gst_amt" required>
+                                    <input type="text" class="form-control" id="basicInput" value="<?php echo $doc['gst_amt'] ?>" name="gst_amt" required>
                                 </fieldset>
                             </div>
                             <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
                                 <fieldset class="form-group">
                                     <label for="basicInput">Total Amount</label>
-                                    <input type="text" class="form-control" id="basicInput" name="total_amt" required>
+                                    <input type="text" class="form-control" id="basicInput" value="<?php echo $doc['total_amt'] ?>" name="total_amt" required>
                                 </fieldset>
                             </div>
                             <div class="col-sm-12 mb-1">
@@ -166,69 +173,7 @@ include('header.php');
                 </div>
 
 
-                <div class="card-content tab-pane" id="view">
-                    <div class="card-body">
-                     
-        <div class="card-content collapse show">
-          <div class="card-body card-dashboard">
-            <div class="table-responsive">
-                         <table class="table table-striped table-bordered dataex-html5-export">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Service Name</th>
-                  <th>Actual Labour Charge</th>
-                  <th>GST(%)</th>
-                  <th>GST Amount</th>
-                  <th>Total Amount</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
-
-                  
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                $i=1;
-
-                $sql=mysqli_query($conn,"select * from service_details where garage_id='$garage_id'");
-                foreach($sql as $doc) 
-                {
-                  
-
-                ?>               
-                <tr>
-                  <td><?php echo $i;?></td>
-                  <td><?php echo $doc['service_name']; ?></td>
-                  <td><?php echo $doc['labour_charge']; ?></td>
-                  <td><?php echo $doc['gst_percentage']; ?></td>
-                   <td><?php echo $doc['gst_amt']; ?></td>
-                  <td><?php echo $doc['total_amt']; ?></td>
-                <form action="servicesedit.php" method="post" target="new">
-    
-                    <td><button class="btn btn-primary float-right" type="submit" name="edit_services" value="edit_services">Edit</button>
-                    <input type="text" name="id" value="<?php echo $doc['service_id']; ?>" hidden>
-                </td>
-                </form>
-                  <td><button class="btn btn-primary float-right" type="submit" name="delete_services" value="delete_services">Delete</button></td>
-                 
-                </tr>
                 
-               <?php
-               $i=$i+1;
-               }
-               ?> 
-              </tbody>
-              
-            </table> 
-        </div>
-        </div>
-    </div>
-
-
-
-                    </div>
-                </div>
             </div>
 
 
