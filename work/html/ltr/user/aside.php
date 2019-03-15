@@ -5,7 +5,7 @@
           </li>
           <li class=" nav-item"><a href="index-2.html"><i class="ft-home"></i><span class="menu-title" data-i18n="">Dashboard</span><span class="badge badge badge-primary badge-pill float-right mr-2">3</span></a>
             <ul class="menu-content">
-              <li class="active"><a class="menu-item" href="dashboard-ecommerce.html">eCommerce</a>
+              <li ><a class="menu-item" href="dashboard-ecommerce.html">eCommerce</a>
               </li>
               <li><a class="menu-item" href="dashboard-analytics.html">Analytics</a>
               </li>
@@ -18,6 +18,12 @@
           </li>
           <li class=" nav-item"><a href="services.php"><i class="icon-wrench"></i><span class="menu-title" data-i18n="">Services</span></a>
           </li>
+          <li class=" nav-item"><a href="#"><i class="icon-settings"></i><span class="menu-title" data-i18n="">Spares Information</span></a>
+            <ul class="menu-content">
+               <li><a class="menu-item" href="spare.php">Add Spares</a></li>
+               <li><a class="menu-item" href="spares-quantity.php">Add Spares Quantity</a></li>
+             </ul>
+           </li>
 
            <li class=" nav-item"><a href="#"><i class="ft-monitor"></i><span class="menu-title" data-i18n="">operations</span></a>
             <ul class="menu-content">

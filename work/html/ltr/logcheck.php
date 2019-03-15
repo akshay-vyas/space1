@@ -13,13 +13,19 @@ if(isset($_POST['login']))
 		if($log['owner_status']=='inactive')
 		{
 			$_SESSION['owner_id'] = $log['owner_id'];
+
 			header('Location:user/garage-details.php');
 		}
 		else
 		{
 			$_SESSION['owner_id'] = $log['owner_id'];
 			$_SESSION['owner_mobile'] = $log['owner_mobile'];
-			header('Location:user/index.php');
+			if(isset($_SESSION['owner_id']))
+			{
+				header('Location:user/index.php');
+
+			}
+			
 		}
 		break;
 		# code...
