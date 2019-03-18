@@ -15,20 +15,19 @@ $sid = $_POST['id'];
 $ser=mysqli_query($conn,"select * from service_details where service_id ='$sid'");
 
   
-// if (isset($_POST['add_service']))
-// {
-//     $service_name=$_POST['service_name'];
-//     $labour_charge=$_POST['labour_charge'];
-//     $gst_percent=$_POST['gst_percent'];
-//     $gst_amt=$_POST['gst_amt'];
-//     $total_amt=$_POST['total_amt'];
+if (isset($_POST['add_service']))
+{
+    $service_name=$_POST['service_name'];
+    $labour_charge=$_POST['labour_charge'];
+    $gst_percent=$_POST['gst_percent'];
+    $gst_amt=$_POST['gst_amt'];
+    $total_amt=$_POST['total_amt'];
    
+$service_insert=mysqli_query($conn,"UPDATE service_details SET `service_name`='$service_name', `labour_charge`='$labour_charge', `gst_percentage`='$gst_percent', `gst_amt`='$gst_amt', `total_amt`='$total_amt'");
 
-//     $service_insert=mysqli_query($conn,"insert into service_details values(null,'$garage_id','$service_name','$labour_charge','$gst_percent','$gst_amt','$total_amt','0')");
+header('Location:services.php');
 
-// header('Location:services.php');
-
-// }
+}
 
 
 ?>
@@ -99,7 +98,7 @@ include('header.php');
 
                             <li class="nav-item active">
 
-                                <a class="nav-link active show"  id="home-tab" data-toggle="tab" href="#create" role="tab" aria-controls="home" aria-selected="true">Edit Services</a>
+                                <a class="nav-link active show"  id="home-tab" data-toggle="tab" href="#create" role="tab" aria-controls="home" aria-selected="true">Edit Service</a>
 
                             </li>
                         </ul>
@@ -137,11 +136,11 @@ include('header.php');
                                     <label for="basicInput">GST(%)</label>
                                                         
                         <select class="form-control" id="basicInput" name="gst_percent" readonly>
-                            <option value="0">0</option>
-                            <option value="5">5</option>
-                            <option value="12">12</option>
-                            <option value="18">18</option>
-                            <option value="28">28</option>
+                            <option value="0"<?php if ($doc['gst_percentage'] == '0') echo ' selected="selected"'; ?>>0</option>
+                            <option value="5"<?php if ($doc['gst_percentage'] == '5') echo ' selected="selected"'; ?>>5</option>
+                            <option value="12"<?php if ($doc['gst_percentage'] == '12') echo ' selected="selected"'; ?>>12</option>
+                            <option value="18"<?php if ($doc['gst_percentage'] == '18') echo ' selected="selected"'; ?>>18</option>
+                            <option value="28"<?php if ($doc['gst_percentage'] == '28') echo ' selected="selected"'; ?>>28</option>
                             
                          </select>
                                 </fieldset>
