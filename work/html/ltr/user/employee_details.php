@@ -30,18 +30,18 @@ if(isset($_POST['submit']))
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="Stack admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, stack admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Dashboard eCommerce - Stack Responsive Bootstrap 4 Admin Template</title>
+    <title>Employee Details</title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
     <!-- BEGIN VENDOR CSS-->
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/vendors.min.css">
+     <link rel="stylesheet" type="text/css" href="../../../app-assets/css/vendors.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/datatable/datatables.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/extensions/unslider.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/weather-icons/climacons.min.css">
@@ -121,73 +121,73 @@ include('header.php');
   <div class="tab-content">
     <div id="create" class="container tab-pane active"><br>
      <!-- create biv -->
-     <fieldset>
+     <fieldset class="form-group">
         <legend>Employee Information</legend>
     <div class="row">
         <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Employee Name</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_name" autofocus="" required="" style="text-transform: capitalize;" title="Alphabets only" onkeypress="return onlyAlphabets(event,this);">
+        <input type="text" class="form-control round" name="emp_name" autofocus="" required="" style="text-transform: capitalize;" title="Alphabets only" onkeypress="return onlyAlphabets(event,this);">
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Empolyee Code</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_code" required="" style="text-transform: capitalize;" >
+        <input type="text" class="form-control round" name="emp_code" required="" style="text-transform: capitalize;" >
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Address</label><span style="color: red"> * </span>
-        <textarea class="form-control" name="emp_addr" rows="3" required="" style="text-transform: capitalize;"></textarea>
+        <textarea class="form-control round" name="emp_addr" rows="3" required="" style="text-transform: capitalize;"></textarea>
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Country</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_country" required="" style="text-transform: capitalize;" title="Alphabets only" onkeypress="return onlyAlphabets(event,this);">
+        <input type="text" class="form-control round" name="emp_country" required="" style="text-transform: capitalize;" title="Alphabets only" onkeypress="return onlyAlphabets(event,this);">
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">State</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_state" required="" style="text-transform: capitalize;" title="Alphabets only" onkeypress="return onlyAlphabets(event,this);" >
+        <input type="text" class="form-control round" name="emp_state" required="" style="text-transform: capitalize;" title="Alphabets only" onkeypress="return onlyAlphabets(event,this);" >
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">City</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_city" required="" style="text-transform: capitalize;" title="Alphabets only" onkeypress="return onlyAlphabets(event,this);">
+        <input type="text" class="form-control round" name="emp_city" required="" style="text-transform: capitalize;" title="Alphabets only" onkeypress="return onlyAlphabets(event,this);">
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Email-Id</label>
-        <input type="email" class="form-control" name="emp_email">
+        <input type="email" class="form-control round" name="emp_email">
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Mobile Number</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_mobno" maxlength="10" pattern=".{10}" required="" title="Numbers only" onkeypress="return onlyNumbers(event,this);">
+        <input type="text" class="form-control round" name="emp_mobno" maxlength="10" pattern=".{10}" required="" title="Numbers only" onkeypress="return onlyNumbers(event,this);">
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Landline Number</label>
-        <input type="text" class="form-control" name="emp_landline" title="Numbers only" onkeypress="return onlyNumbers(event,this);">
+        <input type="text" class="form-control round" name="emp_landline" title="Numbers only" onkeypress="return onlyNumbers(event,this);">
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Date OF Birth</label>
-        <input type="Date" class="form-control" name="emp_date" >
+        <input type="Date" class="form-control round" name="emp_date" >
         </fieldset>
         </div>
     </div>
         </fieldset>
          <div class="text-right">
-                  <button type="submit" name="submit" class="btn btn-success" id="hide">Submit <i class="ft-thumbs-up position-right"></i></button>
+                  <button type="submit" name="submit" class="btn btn-success">Submit <i class="ft-thumbs-up position-right"></i></button>
                   <button type="reset" name="reset" class="btn btn-warning">Reset <i class="ft-refresh-cw position-right"></i></button>
                 </div>
     </div>
@@ -256,7 +256,7 @@ include('header.php');
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Scroll - horizontal</h4>
+                    
                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -277,11 +277,6 @@ include('header.php');
                                     <th>Employee City</th>
                                     <th>Employee Designations</th>
                                 </tr>
-
-                                
-                                
-                                    
-                                
                                 </thead><tbody>
                                   <?php 
                                    $que = mysqli_query($conn, "SELECT * FROM employee_details where garage_id ='1'");
@@ -308,7 +303,7 @@ include('header.php');
                                     ?></td>
                                     <?php
                                     }?>
-
+                                  </tr>
                             </tbody>
                         </table>
                     </div>
@@ -334,7 +329,7 @@ include('theme.php');
    <?php include('footer.php'); ?>
 
     <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
-     <script src="../../../app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
+    <script src="../../../app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
     <script src="../../../app-assets/vendors/js/charts/raphael-min.js"></script>
     <script src="../../../app-assets/vendors/js/charts/morris.min.js"></script>
     <script src="../../../app-assets/vendors/js/extensions/unslider-min.js"></script>

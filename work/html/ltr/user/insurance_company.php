@@ -32,21 +32,16 @@ if(isset($_POST['submit']))
     <meta name="description" content="Stack admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, stack admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Insurance</title>
+    <title>Insurance Company</title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
     <!-- BEGIN VENDOR CSS-->
-     <link rel="stylesheet" type="text/css" href="../../../app-assets/css/vendors.min.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/datatable/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/vendors.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/extensions/unslider.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/weather-icons/climacons.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/fonts/meteocons/style.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/charts/morris.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/datatable/datatables.min.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/extensions/buttons.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/datatable/buttons.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/forms/toggle/switchery.min.css">
     <!-- END VENDOR CSS-->
     <!-- BEGIN STACK CSS-->
     <link rel="stylesheet" type="text/css" href="../../../app-assets/css/app.min.css">
@@ -57,21 +52,10 @@ if(isset($_POST['submit']))
     <link rel="stylesheet" type="text/css" href="../../../app-assets/fonts/simple-line-icons/style.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/css/core/colors/palette-gradient.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/css/pages/timeline.min.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/plugins/forms/switch.min.css">
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
-    <!-- toggle switch on -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
-   $(document).ready(function(){
-   $("#tog").click(function(){
-   $("#ren").toggle();
-   $("#ren1").toggle();
-   });
-   });
-   </script>
-    <!-- toggle switch off -->
+    <!-- END Custom CSS-->
   </head>
   <body class="vertical-layout vertical-menu-modern 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
@@ -95,8 +79,8 @@ include('header.php');
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">New Insurance</h2>
-                    
+                    <h2 class="card-title">Insurance Company</h2>
+                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
                             <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
@@ -126,18 +110,18 @@ include('header.php');
     <div id="create" class="container tab-pane active"><br>
      <!-- create biv -->
      <fieldset><br/>
-        <legend>Customer Details</legend>
+        <legend>Insurance Company</legend>
     <div class="row">
         <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
-        <label for="basicInput">Name</label>
+        <label for="basicInput">Insurance Company</label>
         <input type="text" class="form-control" name="ins_comp" autofocus="" required="" style="text-transform: capitalize;" title="Alphabets only" onkeypress="return onlyAlphabets(event,this);">
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
-        <label for="basicInput">Mobile Number</label>
-        <input type="text" class="form-control" name="ins_phno" required="" style="text-transform: capitalize;" maxlength="10" pattern=".{10}" title="Numbers only Characters should be 10" onkeypress="return onlyNumbers(event,this);">
+        <label for="basicInput">Branch</label>
+        <input type="text" class="form-control" name="ins_branch" required="" style="text-transform: capitalize;" >
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
@@ -146,7 +130,19 @@ include('header.php');
         <textarea class="form-control" name="ins_addr" rows="3" required="" style="text-transform: capitalize;"></textarea>
         </fieldset>
         </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+         <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+        <fieldset class="form-group">
+        <label for="basicInput">Phone Number</label>
+        <input type="text" class="form-control" name="ins_phno" required="" style="text-transform: capitalize;" maxlength="10" pattern=".{10}" title="Numbers only Characters should be 10" onkeypress="return onlyNumbers(event,this);">
+        </fieldset>
+        </div>
+         <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
+        <fieldset class="form-group">
+        <label for="basicInput">Contact Person Name</label>
+        <input type="text" class="form-control" name="ins_cntperson" required="" style="text-transform: capitalize;" title="Alphabets only" onkeypress="return onlyAlphabets(event,this);" >
+        </fieldset>
+        </div>
+         <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Email-Id</label>
         <input type="email" class="form-control" name="ins_email">
@@ -154,160 +150,15 @@ include('header.php');
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
-        <label for="basicInput">Aadhar Card Number</label>
-        <input type="text" class="form-control" name="ins_aadhar" maxlength="12" pattern=".{10,}" title="Numbers only" onkeypress="return onlyNumbers(event,this);">
+        <label for="basicInput">Another Phone Number/LandLine Number</label>
+        <input type="text" class="form-control" name="ins_land" maxlength="12" pattern=".{10,}" title="Numbers only" onkeypress="return onlyNumbers(event,this);">
         </fieldset>
         </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-        <fieldset class="form-group">
-        <label for="basicInput">Pancard Number</label>
-        <input type="text" class="form-control" name="ins_pan" required="" style="text-transform: capitalize;">
-        </fieldset>
-        </div>
-        </div>
-    </fieldset>
-        <fieldset>
-        <legend>New Insurance Policy</legend><br/>
-    <div class="row">
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-            <label for="basicInput">Policy Category</label>
-             <fieldset class="form-group">
-                 <select class="form-control" id="basicInput" name="ins_type" required="">
-                    <option selected>Please Select</option>
-                    <option value="1">Two Weler</option>
-                    <option value="2">Three Weler</option>
-                    <option value="3">Four Weler</option>
-                </select>
-             </fieldset>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-            <label for="basicInput">Insurance Compant</label>
-             <fieldset class="form-group">
-                 <select class="form-control" id="basicInput" name="ins_inscompany" required="">
-                    <option selected>Please Select</option>
-                     <?php
-                     foreach ($view as $view1) 
-                    {
-                    ?>
-                    <option value="<?php echo $view1['insurance_id'] ?>"><?php echo $view1['insurance_company_name'] ?></option>
-                    <?php
-                    }
-                    ?>
-                </select>
-             </fieldset>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-        <fieldset class="form-group">
-        <label for="basicInput">Executive Name</label>
-        <input type="text" class="form-control" name="ins_exename" required="" style="text-transform: capitalize;" title="Alphabets only" onkeypress="return onlyAlphabets(event,this);">
-        </fieldset>
-        </div>
-         <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-        <fieldset class="form-group">
-        <label for="basicInput">Regestered Vehicle Number</label>
-        <input type="text" class="form-control" name="ins_vehiclenumber" autofocus="" required="" style="text-transform:uppercase;">
-        </fieldset>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-            <label for="basicInput">OEM</label>
-             <fieldset class="form-group">
-                 <select class="form-control" id="basicInput" name="ins_oem" required="">
-                    <option selected>Please Select</option>
-                </select>
-             </fieldset>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-            <label for="basicInput">Model</label>
-             <fieldset class="form-group">
-                 <select class="form-control" id="basicInput" name="ins_model" required="">
-                    <option selected>Please Select</option>
-                </select>
-             </fieldset>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-        <fieldset class="form-group">
-        <label for="basicInput">Vehicle Purchased Date</label>
-        <input type="date" class="form-control" name="ins_vehicledate" required="">
-        </fieldset>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-        <fieldset class="form-group">
-        <label for="basicInput">Engine Number</label>
-        <input type="text" class="form-control" name="ins_engine" required="" style="text-transform: capitalize;">
-        </fieldset>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-        <fieldset class="form-group">
-        <label for="basicInput">Chasi Number</label>
-        <input type="text" class="form-control" name="ins_chasi" required="" style="text-transform: capitalize;">
-        </fieldset>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-        <fieldset class="form-group">
-        <label for="basicInput">Policy Number</label>
-        <input type="text" class="form-control" name="ins_pan" required="" style="text-transform: capitalize;">
-        </fieldset>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-            <label for="basicInput">Policy Type</label>
-             <fieldset class="form-group">
-                 <select class="form-control" id="basicInput" name="ins_type" required="">
-                    <option selected>Please Select</option>
-                    <option value="1">Bumper To Bumper</option>
-                    <option value="2">Comprehensive</option>
-                    <option value="3">Third Party</option>
-                </select>
-             </fieldset>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-        <fieldset class="form-group">
-        <label for="basicInput">Policy Cost</label>
-        <input type="text" class="form-control" name="ins_cost" required="" onkeypress="return onlyNumbers(event,this);">
-        </fieldset>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-        <fieldset class="form-group">
-        <label for="basicInput">Policy Purchased Date</label>
-        <input type="date" class="form-control" name="ins_dateofpurch" required="">
-        </fieldset>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-        <fieldset class="form-group">
-        <label for="basicInput">Policy Expire Date</label>
-        <input type="date" class="form-control" name="ins_expdate" required="">
-        </fieldset>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
-             <label for="basicInput">Renewel Insurance</label>
-            <fieldset>
-              <div class="float-center">
-                <input type="checkbox" class="switch" id="tog1" data-switch-always unchecked/>
-              </div>
-            </fieldset>
-            <input type="checkbox" id="tog" data-switch-always checked/>
-            <div id="radioBtnisrenew" class="btn-group">
-                            <a class="btn btn-primary btn-sm notActive"  id="yes"   data-toggle="Renewed" data-title="Yes">YES</a>
-                            <a class="btn btn-primary btn-sm active"     id="no"   data-toggle="Renewed" data-title="No">NO</a>
-                        </div>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1" id="ren">
-        <fieldset class="form-group">
-        <label for="basicInput">Renewel Amount</label>
-        <input type="text" class="form-control" name="ins_expdate" onkeypress="return onlyNumbers(event,this);">
-        </fieldset>
-        </div>
-        <div class="col-xl-4 col-lg-6 col-md-12 mb-1" id="ren1">
-        <fieldset class="form-group" >
-        <label for="basicInput">Renewel Date</label>
-        <input type="date" class="form-control" name="ins_expdate" >
-        </fieldset>
-        </div>
-        
-
     </div>
+        </fieldset>
          <div class="text-right">
                   <button type="submit" name="submit" class="btn btn-success">Submit <i class="ft-thumbs-up position-right"></i></button>
-                  <button type="reset" name="reset" class="btn btn-warning" >Reset <i class="ft-refresh-cw position-right"></i></button>
+                  <button type="reset" name="reset" class="btn btn-warning">Reset <i class="ft-refresh-cw position-right"></i></button>
                 </div>
     </div>
   </form>
@@ -323,8 +174,8 @@ include('header.php');
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">view</h4>
-                    
+                    <h3 class="card-title">Insurance View</h3>
+                    <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
                             <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
@@ -371,9 +222,9 @@ include('header.php');
                         </table>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
+</div>
 </section>
 <!--/ Scroll - horizontal table -->
         </div>
@@ -395,10 +246,13 @@ include('theme.php');
 ?>
     
    <?php include('footer.php'); ?>
+
     <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
-    <script src="../../../app-assets/vendors/js/forms/toggle/bootstrap-checkbox.min.js"></script>
-    <script src="../../../app-assets/vendors/js/forms/toggle/switchery.min.js"></script>
     <script src="../../../app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
+    <script src="../../../app-assets/js/core/app-menu.min.js"></script>
+    <script src="../../../app-assets/js/core/app.min.js"></script>
+    <script src="../../../app-assets/js/scripts/customizer.min.js"></script>
+    <script src="../../../app-assets/js/scripts/tables/datatables/datatable-basic.min.js"></script>
     <script src="../../../app-assets/vendors/js/charts/raphael-min.js"></script>
     <script src="../../../app-assets/vendors/js/charts/morris.min.js"></script>
     <script src="../../../app-assets/vendors/js/extensions/unslider-min.js"></script>
@@ -407,8 +261,6 @@ include('theme.php');
     <script src="../../../app-assets/js/core/app.min.js"></script>
     <script src="../../../app-assets/js/scripts/customizer.min.js"></script>
     <script src="../../../app-assets/js/scripts/pages/dashboard-ecommerce.min.js"></script>
-    <script src="../../../app-assets/js/scripts/tables/datatables/datatable-basic.min.js"></script>
-    <script src="../../../app-assets/js/scripts/forms/switch.min.js"></script>
   </body>
 
 <!-- Mirrored from pixinvent.com/stack-responsive-bootstrap-4-admin-template/html/ltr/vertical-modern-menu-template/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Mar 2019 20:03:18 GMT -->
