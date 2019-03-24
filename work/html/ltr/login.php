@@ -69,7 +69,7 @@ if(isset($_POST['register']))
                     <div class="card-body pt-0">
                         <form class="form-horizontal" action="logcheck.php" method="post">
                             <fieldset class="form-group floating-label-form-group">
-                                <label for="user-name">User Name</label>
+                                <label for="user-name">Mobile / Email</label>
                                 <input type="text" class="form-control" id="user-name" name="username" placeholder="User Name">
                            
 
@@ -79,11 +79,11 @@ if(isset($_POST['register']))
                                 <input type="password" class="form-control" id="user-password" name="userpassword" placeholder="Enter Password">
                             </fieldset>
                            
-                            <button type="submit" name="login" value="login" class="btn btn-outline-primary btn-block"><i class="ft-user"></i> Register</button>
+                            <button type="submit" name="login" value="login" class="btn btn-outline-primary btn-block"><i class="ft-user"></i> Login</button>
                         </form>
                     </div>
                     <div class="card-body pt-0">
-                        <a href="login-with-bg.html" class="btn btn-outline-danger btn-block"><i class="ft-unlock"></i> Login</a>
+                        <a href="registration.php" class="btn btn-outline-danger btn-block"><i class="ft-unlock"></i> Register</a>
                     </div>
                 </div>
             </div>
