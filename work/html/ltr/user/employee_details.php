@@ -1,8 +1,6 @@
 <?php
-
-
 include('dbconnect.php');
-
+include('number.php');
 if(isset($_POST['submit']))
 {
   $name = $_POST['emp_name'];
@@ -67,7 +65,6 @@ if(isset($_POST['submit']))
     <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
     <!-- END Custom CSS-->
   </head>
-
   <body class="vertical-layout vertical-menu-modern 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
     <!-- fixed-top-->
@@ -130,8 +127,7 @@ include('header.php');
         <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Employee Name</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_name" autofocus="" required="" style="text-transform: capitalize;">
-        <span style="color: red" hidden="">please enter the Name</span>
+        <input type="text" class="form-control" name="emp_name" autofocus="" required="" style="text-transform: capitalize;" title="Alphabets only" onkeypress="return onlyAlphabets(event,this);">
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
@@ -149,19 +145,19 @@ include('header.php');
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Country</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_country" required="" style="text-transform: capitalize;">
+        <input type="text" class="form-control" name="emp_country" required="" style="text-transform: capitalize;" title="Alphabets only" onkeypress="return onlyAlphabets(event,this);">
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">State</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_state" required="" style="text-transform: capitalize;" >
+        <input type="text" class="form-control" name="emp_state" required="" style="text-transform: capitalize;" title="Alphabets only" onkeypress="return onlyAlphabets(event,this);" >
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">City</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_city" required="" style="text-transform: capitalize;">
+        <input type="text" class="form-control" name="emp_city" required="" style="text-transform: capitalize;" title="Alphabets only" onkeypress="return onlyAlphabets(event,this);">
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
@@ -173,13 +169,13 @@ include('header.php');
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Mobile Number</label><span style="color: red"> * </span>
-        <input type="text" class="form-control" name="emp_mobno" maxlength="10" required="">
+        <input type="text" class="form-control" name="emp_mobno" maxlength="10" pattern=".{10}" required="" title="Numbers only" onkeypress="return onlyNumbers(event,this);">
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
         <fieldset class="form-group">
         <label for="basicInput">Landline Number</label>
-        <input type="text" class="form-control" name="emp_landline" >
+        <input type="text" class="form-control" name="emp_landline" title="Numbers only" onkeypress="return onlyNumbers(event,this);">
         </fieldset>
         </div>
          <div class="col-xl-4 col-lg-6 col-md-12 mb-1">
@@ -212,7 +208,7 @@ include('header.php');
          foreach ($sql as $sql1 )
          {
           ?>
-          <option value="<?php echo $sql1['employee_id'];?>"><?php echo $sql1['employee_name'];?> </option>
+          <option style="text-transform: capitalize;" value="<?php echo $sql1['employee_id'];?>"><?php echo $sql1['employee_name'];?> </option>
         <?php 
          }
          ?> 
@@ -230,15 +226,10 @@ include('header.php');
           <?php
          foreach ($res as $res1) 
          {
-          $des_id =$res1['designation_id'];
+         // $des_id =$res1['designation_id'];
          ?>
-         <!-- <div class="controls">
-         <div class="skin skin-square"> -->
-          
         <td><input type="checkbox" name="designatio[]" value="<?php echo $res1['designation_id'];?>"> 
         <label for="<?php echo $res1['designation_id'];?>"><strong><?php echo $res1['designation_name'];?></strong></label></td>
-    
-        <!-- </div> -->
           <?php
         }
         ?></tr>
@@ -265,7 +256,7 @@ include('header.php');
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Scroll - horizontal</h4>
+                    <!-- <h4 class="card-title">Scroll - horizontal</h4> -->
                     <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -276,15 +267,18 @@ include('header.php');
                         </ul>
                     </div>
                 </div>
-                <div class="card-content collapse show">
-                    <div class="card-body card-dashboard">
-                        <table class="table display nowrap table-striped table-bordered scroll-horizontal">
-                            <thead>
+                 <div class="card-content collapse show">
+          <div class="card-body card-dashboard">
+            <div class="table-responsive">
+                         <table class="table table-striped table-bordered dataex-html5-export">
+              <thead>
+                            <thead><tr>
                                <th>Employee Name</th>
                                     <th>Employee PhoneNumber</th>
                                     <th>Employee Address</th>
                                     <th>Employee City</th>
                                     <th>Employee Designations</th>
+                                    <th>Edit</th>
                                 </tr>
 
                                 
@@ -315,8 +309,10 @@ include('header.php');
                                     <?php
                                      }
                                     ?></td>
+                                     <th><input type="submit" name="edit" value="EDIT" class="btn btn-success"></th>
                                     <?php
-                                    }?>
+                                }?>
+                                  </tr>
 
                             </tbody>
                         </table>

@@ -188,7 +188,7 @@ include('header.php');
                                      <div class="form-group">
                                             <label for="eventLocation1">Select GST Type :</label>
                                             <select class="custom-select form-control" id="eventLocation1" name="gst_status">
-                                                <option value="">Select City</option>
+                                                <option value="">Select GST Type</option>
                                                 <option value="yes">YES</option>
                                                 <option value="no">No</option>
                                                 
@@ -210,7 +210,7 @@ include('header.php');
                                         <div class="form-group">
                                             <label for="eventLocation1">Select Garage Type :</label>
                                             <select class="custom-select form-control" id="eventLocation1" name="garage_type">
-                                                <option value="">Select City</option>
+                                                <option value="">Select Garage Type</option>
                                                 <option value="2">2</option>
                                                 <option value="4">4</option>
                                                 
@@ -224,7 +224,7 @@ include('header.php');
                                     <div class="col-md-6">
                                         <div class="form-group">
                                            
-                                            <button type="submit" class="form-control btn btn-primary" name="update" value="update" id="phoneNumber1" name="gst_no" >ok </button>
+                                            <button type="submit" class="form-control btn btn-primary" name="update" value="update" id="phoneNumber1" name="gst_no" >Submit </button>
                                         </div>
                                     </div>
 
