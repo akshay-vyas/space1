@@ -264,7 +264,7 @@
                                                         <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons" name="vendor_company_name1">
                                                           <option selected disabled>Choose Vendor</option>    
                                                           <?php
-                                                          $vendor=mysqli_query($conn,"select * from vendor_information");
+                                                          $vendor=mysqli_query($conn,"select * from vendor_information where garage_id ='$garage_id' ");
                                                           foreach ($vendor as $doc) 
                                                           {
 

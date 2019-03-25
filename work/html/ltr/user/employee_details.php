@@ -1,6 +1,14 @@
 <?php
 include('dbconnect.php');
 include('number.php');
+session_start();
+$owner_id=$_SESSION['owner_id'];
+$garage_id='';
+$owner_info=mysqli_query($conn,"select * from garage_details where owner_id='$owner_id'");
+foreach ($owner_info as $info)
+ {
+$garage_id=$info['garage_id'];
+}
 if(isset($_POST['submit']))
 {
   $name = $_POST['employee_name'];

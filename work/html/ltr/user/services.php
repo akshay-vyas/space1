@@ -19,6 +19,7 @@ if (isset($_POST['add_service']))
    
 
     $service_insert=mysqli_query($conn,"insert into service_details values(null,'$garage_id','$service_name','$labour_charge','$gst_percent','$gst_amt','$total_amt','0')");
+    echo "insert into service_details values(null,'$garage_id','$service_name','$labour_charge','$gst_percent','$gst_amt','$total_amt','0')";
 
 header('Location:services.php');
 
