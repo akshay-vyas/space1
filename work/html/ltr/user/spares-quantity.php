@@ -48,7 +48,7 @@ error_reporting(0);
         <title>Dashboard eCommerce - Stack Responsive Bootstrap 4 Admin Template</title>
         <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
         <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i%7COpen+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+
         <!-- BEGIN VENDOR CSS-->
         <link rel="stylesheet" type="text/css" href="../../../app-assets/css/vendors.min.css">
         <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/extensions/unslider.css">
@@ -73,8 +73,9 @@ error_reporting(0);
         <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
         <!-- END Custom CSS-->
         <!-- ajax -->
-          <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
 
+    <script type="text/javascript" src="./src/js/lib/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="./src/js/lib/jquery-ui.min.js"></script>
     </head>
     <body class="vertical-layout vertical-menu-modern 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
@@ -134,52 +135,62 @@ error_reporting(0);
                                     <div class="tab-content">
                                         <div class="card-content tab-pane active" id="create">
                                             <div class="card-body">
-                                                <form method="post">
+                                                
                                                     <div class="row">
-                                                        <div class="col-md-4">
-                  <div class="form-group">
+                   <div class="col-12">
+                <div class="table-responsive">
+                    <table id="autocomplete_table" class="table table-hover autocomplete_table">
+                        <thead class="thead-light">
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">spares name</th>
+                                <th scope="col">spares no</th>
+                                <th scope="col">gstin</th>
+                                <th scope="col">hsn</th>
+                                <th scope="col">spareamount</th>
+                            </tr>
+                        </thead>
 
-                    <!-- Fetching vendor Details  -->
-
-             
-               <label for="basicInput">Spare Part Name</label>
-              <select data-placeholder="Select a state..." class="select2-icons form-control" id="select2-icons" name="spare_id" onChange="getPartInfo(this.value)">
-                  <option selected disabled>Choose Part Name</option>    
-               <?php
-               $part=mysqli_query($conn,"select * from spares_details where garage_id='$garage_id'");
-               foreach ($part as $doc) 
-               {
-                 
-               ?>
-                  <option value="<?php echo $doc['spare_id']; ?>" data-icon="wordpress2" ><?php echo $doc['spare_part_name'];?></option>
-                  <?php
-
-                }
-                ?>
-                
-              </select>
-            </div>
-          </div>
-
-
-
-          <div class="col-md-4" id="ajax-info">
-
-          </div>
-                                                    
+                        <tbody>
+                            <tr id="row_1">
+                                <th id="delete_1" scope="row" class="delete_row"><img src="./src/images/minus.svg" alt=""></th>
+                                <td>
+                                    <input type="text" data-type="sparename" name="sparename[]" id="sparename_1" class="form-control autocomplete_txt" autocomplete="off">
+                                </td>
+                                <td>
+                                    <input type="text" data-type="spareno" name="spareno[]" id="spareno_1" class="form-control autocomplete_txt" autocomplete="off">
+                                </td>
+                                <td>
+                                    <input type="text" data-type="gstin" name="gstin[]" id="gstin_1" class="form-control autocomplete_txt" autocomplete="off">
+                                </td>
+                                <td>
+                                    <input type="text" data-type="hsn" name="hsn[]" id="hsn_1" class="form-control autocomplete_txt" autocomplete="off">
+                                </td>
+                                 <td>
+                                    <input type="text" data-type="spareamount" name="spareamount[]" id="spareamount_1" class="form-control autocomplete_txt" autocomplete="off">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+          
+                                  <div class="btn-container">
+                    <button class="btn btn-info" id="addNew">
+                        Add New
+                    </button>
+                </div>  
+                              
 
 
 
 
                                                   
-                                                        <div class="col-sm-12 mb-1">
-                                                <button class="btn btn-primary float-right" type="submit" name="add_spare_quantity" value="add_spare_quantity"> Submit</button>
-                                            </div>
                                                     </div>
                                                     
-                                                </form>
+                                                
                                             </div>
                                         </div>
+                                      </div>
 
 
 
@@ -313,6 +324,7 @@ include('theme.php');
 
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+
 <script>
 function getPartInfo(val) {
   $.ajax({
@@ -330,6 +342,7 @@ $("#search-box").val(val);
 $("#suggesstion-box").hide();
 }
 </script>
+ <script src="src/js/app.js"></script>
 </body>
 
 <!-- Mirrored from pixinvent.com/stack-responsive-bootstrap-4-admin-template/html/ltr/vertical-modern-menu-template/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Mar 2019 20:03:18 GMT -->
