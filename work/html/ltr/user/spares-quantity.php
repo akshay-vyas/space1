@@ -39,9 +39,6 @@ error_reporting(0);
 
     <!-- Mirrored from pixinvent.com/stack-responsive-bootstrap-4-admin-template/html/ltr/vertical-modern-menu-template/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Mar 2019 20:01:41 GMT -->
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
         <meta name="description" content="Stack admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
         <meta name="keywords" content="admin template, stack admin template, dashboard template, flat admin template, responsive admin template, web app">
         <meta name="author" content="PIXINVENT">
@@ -299,7 +296,7 @@ include('theme.php');
 
 <?php include('footer.php'); ?>
 
-<script src="../../../app-assets/vendors/js/vendors.min.js"></script>
+<!-- <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
 <script src="../../../app-assets/vendors/js/charts/raphael-min.js"></script>
 <script src="../../../app-assets/vendors/js/charts/morris.min.js"></script>
 <script src="../../../app-assets/vendors/js/extensions/unslider-min.js"></script>
@@ -318,12 +315,8 @@ include('theme.php');
 <script src="../../../app-assets/vendors/js/tables/buttons.print.min.js"></script>
 <script src="../../../app-assets/vendors/js/tables/buttons.colVis.min.js"></script>
 <script src="../../../app-assets/js/scripts/tables/datatables-extensions/datatable-button/datatable-html5.min.js"></script>
-<script src="../../../app-assets/js/scripts/tables/datatables-extensions/datatable-button/datatable-visibility.min.js"></script>
+<script src="../../../app-assets/js/scripts/tables/datatables-extensions/datatable-button/datatable-visibility.min.js"></script> -->
 
-
-
-
-<script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
 
 <script>
 function getPartInfo(val) {
